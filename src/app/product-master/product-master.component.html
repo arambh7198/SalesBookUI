@@ -1,0 +1,45 @@
+<mat-card><button mat-raised-button color="primary"><mat-icon style="padding-right:3px;margin-bottom:2px">attachment</mat-icon>Create New Product</button></mat-card>
+<mat-card>
+    <table border="1" class="table_data_section try-data-table">
+        <thead>
+            <tr>
+                <th class="th-TrayQty">Name</th>
+                <th class="th-TrayQty">Description</th>
+                <th class="th-TrayQty">HSNCode</th>
+                <th class="th-TrayQty">BasePrice</th>
+                <th class="th-1">WebAction</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let item of [1,2,3,4,5,6]">
+                <td>
+                    17/04/2021
+                </td>
+                <td>
+                    INT/001
+                </td>
+                <td>
+                    ABC Infotech Pvt Ltd
+                </td>
+                <td>
+                    5,58,000
+                </td>
+                <td>
+                    <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+
+
+</mat-card>

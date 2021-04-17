@@ -1,1 +1,50 @@
-<p>sales works!</p>
+<mat-card><button mat-raised-button (click)="addEditSales()" color="primary"><mat-icon>attachment</mat-icon>Create New Invoice</button></mat-card>
+<table border="1" class="table_data_section try-data-table" >
+    <thead>
+        <tr>
+            <th class="th-TrayQty">Date</th>
+            <th class="th-TrayQty">Inbvoice No</th>
+            <th class="th-TrayQty">Party</th>
+            <th class="th-TrayQty">Amount</th>
+            <th class="th-Qty">Items</th>
+            <th class="th-1">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let item of [1,2,3,4,5,6]">
+            <td>
+               17/04/2021
+            </td>
+            <td>
+                INT/001
+            </td>
+            <td>
+               ABC Infotech Pvt Ltd
+            </td>
+            <td>
+                5,58,000
+            </td>
+            <td>
+                <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+                    <mat-icon>info</mat-icon>
+                </button>
+                
+            </td>
+            <td>
+                <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </tr>
+
+    </tbody>
+
+</table>
+
+
+
+

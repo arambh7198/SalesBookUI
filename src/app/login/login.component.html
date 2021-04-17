@@ -1,0 +1,37 @@
+
+<div class="login-wrapper login-page my-3" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-progress-bar *ngIf="loginLoader" mode="indeterminate"></mat-progress-bar>
+        <mat-card-header>
+
+            <mat-card-title>Log in</mat-card-title>
+        </mat-card-header>
+
+        <form #loginForm="ngForm" class="example-form login-form">
+            <mat-card-content>
+                <p>
+                    <mat-form-field class="example-full-width">
+                        <input required #loginNname matInput placeholder="Username" name="login" [(ngModel)]="loginName">
+                        <mat-error *ngIf="loginNameError">
+                            {{loginNameError}}
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <mat-form-field class="example-full-width">
+                        <input required type="password" matInput placeholder="Password" name="password" [(ngModel)]="password">
+                        <mat-error *ngIf="passwordError">
+                            {{passwordError}}
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+
+            </mat-card-content>
+            <button mat-raised-button [disabled]="loginLoader && loginForm.form.invalid" color="primary" class="btn-block login-button" (click)="login()">Log in</button>
+
+        </form>
+
+    </mat-card>
+
+</div>
