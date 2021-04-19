@@ -1,0 +1,94 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput BankName="BankName" #BankName required [formControl]="itemForm.controls['BankName']" 
+                       maxlength="255" placeholder="BankName" autocomplete="off">
+                <!--<mat-hint align="end">{{BankName.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['BankName'].hasError('required') && itemForm.controls['BankName'].touched"
+                   class="form-error-msg">BankName is required</small>
+            <small *ngIf="itemForm.controls['BankName'].hasError('minlength') && itemForm.controls['BankName'].touched"
+                   class="form-error-msg">BankName require at least{{itemForm.controls['BankName'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['BankName'].hasError('maxlength') && itemForm.controls['BankName'].touched"
+                   class="form-error-msg">BankName can not contain more than{{itemForm.controls['BankName'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput BankAdd1="BankAdd1" #BankAdd1 required [formControl]="itemForm.controls['BankAdd1']" maxlength="255" placeholder="BankAdd1" autocomplete="off">
+                <!--<mat-hint align="end">{{BankAdd1.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['BankAdd1'].hasError('required') && itemForm.controls['BankAdd1'].touched"
+                   class="form-error-msg">BankAdd1 is required</small>
+            <small *ngIf="itemForm.controls['BankAdd1'].hasError('minlength') && itemForm.controls['BankAdd1'].touched"
+                   class="form-error-msg">BankAdd1 require at least{{itemForm.controls['BankAdd1'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['BankAdd1'].hasError('maxlength') && itemForm.controls['BankAdd1'].touched"
+                   class="form-error-msg">BankAdd1 can not contain more than{{itemForm.controls['BankAdd1'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput BankAdd2="BankAdd2" #BankAdd2 required [formControl]="itemForm.controls['BankAdd2']" maxlength="255" placeholder="BankAdd2" autocomplete="off">
+                <!--<mat-hint align="end">{{BankAdd2.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['BankAdd2'].hasError('required') && itemForm.controls['BankAdd2'].touched"
+                   class="form-error-msg">BankAdd2 is required</small>
+            <small *ngIf="itemForm.controls['BankAdd2'].hasError('minlength') && itemForm.controls['BankAdd2'].touched"
+                   class="form-error-msg">BankAdd2 require at least{{itemForm.controls['BankAdd2'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['BankAdd2'].hasError('maxlength') && itemForm.controls['BankAdd2'].touched"
+                   class="form-error-msg">BankAdd2 can not contain more than{{itemForm.controls['BankAdd2'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        
+        <div fxFlex="50">
+            <mat-form-field class="example-full-width">
+                <mat-label>City</mat-label>
+                <input matInput
+                       aria-label="City"
+                       [matAutocomplete]="auto"
+                       [formControl]="cityCtrl">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let item of filteredCityObservable | async"
+                                (onSelectionChange)="updateForm(item,'City')"
+                                [value]="item.Display">
+                        <span>{{item.Display}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput AccNo="AccNo" #AccNo required [formControl]="itemForm.controls['AccNo']" maxlength="50" placeholder="AccNo" autocomplete="off">
+                <!--<mat-hint align="end">{{AccNo.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['AccNo'].hasError('required') && itemForm.controls['AccNo'].touched"
+                   class="form-error-msg">AccNo is required</small>
+            <small *ngIf="itemForm.controls['AccNo'].hasError('minlength') && itemForm.controls['AccNo'].touched"
+                   class="form-error-msg">AccNo require at least{{itemForm.controls['AccNo'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['AccNo'].hasError('maxlength') && itemForm.controls['AccNo'].touched"
+                   class="form-error-msg">AccNo can not contain more than{{itemForm.controls['AccNo'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput IFSCCode="IFSCCode" #IFSCCode required [formControl]="itemForm.controls['IFSCCode']" maxlength="255" placeholder="IFSCCode" autocomplete="off">
+                <!--<mat-hint align="end">{{IFSCCode.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['IFSCCode'].hasError('required') && itemForm.controls['IFSCCode'].touched"
+                   class="form-error-msg">IFSCCode is required</small>
+            <small *ngIf="itemForm.controls['IFSCCode'].hasError('minlength') && itemForm.controls['IFSCCode'].touched"
+                   class="form-error-msg">IFSCCode require at least{{itemForm.controls['IFSCCode'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['IFSCCode'].hasError('maxlength') && itemForm.controls['IFSCCode'].touched"
+                   class="form-error-msg">IFSCCode can not contain more than{{itemForm.controls['IFSCCode'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pt-1 pr-1" *ngIf="!data.isNewDialog">
+            <mat-slide-toggle [formControl]="itemForm.controls['Locked']">Locked</mat-slide-toggle>
+        </div>
+
+        <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="primary" [disabled]="itemForm.invalid">{{"SAVE"}}</button>
+            <span fxFlex></span>
+            <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+        </div>
+    </div>
+</form>

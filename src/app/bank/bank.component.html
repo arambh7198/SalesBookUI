@@ -1,0 +1,86 @@
+<mat-card>
+    <div fxLayout="row">
+        <div fxFlex="20" class="m-333">
+            <button (click)="openPopUp()" mat-raised-button color="primary">
+                <mat-icon style="padding-right:3px;margin-bottom:2px">
+                    add
+                </mat-icon>Add Party
+            </button>
+        </div>
+        <div fxFlex="80" fxLayoutAlign="end center">
+            <mat-form-field class="pt-0 pb-0">
+                <input matInput placeholder="Search" [(ngModel)]="query.SearchText" (input)="searchCallback()" />
+            </mat-form-field>
+            <mat-icon>search</mat-icon>
+        </div>
+    </div>
+</mat-card>
+<!--<mat-card><button mat-raised-button color="primary"><mat-icon style="padding-right:3px;margin-bottom:2px">attachment</mat-icon>Create New Product</button></mat-card>-->
+<mat-card>
+    <table border="1" class="table_data_section try-data-table">
+        <thead>
+            <tr>
+                <th class="th-TrayQty"
+                    (click)="sortClick('BankName')"
+                    [ngClass]="{ 'sorting': isSorting('BankName'), 'sorting_asc': isSortAsc('BankName'), 'sorting_desc': isSortDesc('BankName') }">
+                    Bank
+                </th>
+                <th class="th-TrayQty"
+                    (click)="sortClick('AccNo')"
+                    [ngClass]="{ 'sorting': isSorting('AccNo'), 'sorting_asc': isSortAsc('AccNo'), 'sorting_desc': isSortDesc('AccNo') }">
+                    AccNo
+                </th>
+                <th class="th-TrayQty"
+                    (click)="sortClick('IFSCCode')"
+                    [ngClass]="{ 'sorting': isSorting('IFSCCode'), 'sorting_asc': isSortAsc('IFSCCode'), 'sorting_desc': isSortDesc('IFSCCode') }">
+                    IFSCCode
+                </th>
+
+                <th class="th-TrayQty">
+                    Locked
+                </th>
+                <th class="th-1">WebAction</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let item of items">
+                <td>
+                    {{item.BankName}}<br>
+
+                </td>
+                <td>
+                    {{item.AccNo}}
+                </td>
+                <td>
+                    {{item.IFSCCode}}
+                </td>
+               
+                <td>
+                    <mat-slide-toggle class="example-margin" style="margin-left:70px"
+                                      color="warn"
+                                      [checked]="item.Locked"
+                                      [disabled]="true">
+                    </mat-slide-toggle>
+                </td>
+                <td>
+                    <button (click)="openPopUp(item,false)" mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button (click)="deleteItem(item)" mat-icon-button color="warn" aria-label="Example icon button with a menu icon">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <mat-paginator [length]="query.TotalCount"
+                   [pageSize]="query.PageSize"
+                   (page)="ListPageChangeEvent($event)">
+    </mat-paginator>
+
+
+</mat-card>

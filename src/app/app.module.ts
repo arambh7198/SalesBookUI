@@ -30,6 +30,8 @@ import { ProductMasterComponent } from './product-master/product-master.componen
 import { ProductMasterAddEditComponent } from './product-master/product-master-add-edit/product-master-add-edit.component';
 import { CustvendComponent } from './custvend/custvend.component';
 import { CustvendaddeditComponent } from './custvend/custvendaddedit/custvendaddedit.component';
+import { BankComponent } from './bank/bank.component';
+import { BankaddeditComponent } from './bank/bankaddedit/bankaddedit.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,9 @@ import { CustvendaddeditComponent } from './custvend/custvendaddedit/custvendadd
         ProductMasterComponent,
         ProductMasterAddEditComponent,
         CustvendComponent,
-        CustvendaddeditComponent
+        CustvendaddeditComponent,
+        BankComponent,
+        BankaddeditComponent
     ],
     imports: [
         BrowserModule,

@@ -23,6 +23,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\bank\bank.component.html" />
+    <Content Include="src\app\bank\bankaddedit\bankaddedit.component.html" />
     <Content Include="src\app\custvend\custvend.component.html" />
     <Content Include="src\app\custvend\custvendaddedit\custvendaddedit.component.html" />
     <Content Include="src\app\login\login.component.html" />
@@ -40,6 +42,12 @@
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\appsettings.ts" />
+    <TypeScriptCompile Include="src\app\bank\bank.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\bank\bank.component.ts" />
+    <TypeScriptCompile Include="src\app\bank\bank.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\bank\bank.service.ts" />
+    <TypeScriptCompile Include="src\app\bank\bankaddedit\bankaddedit.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\bank\bankaddedit\bankaddedit.component.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvend.component.spec.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvend.component.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvend.service.spec.ts" />
@@ -83,6 +91,8 @@
     <Content Include="src\app\product-master\product-master-add-edit\product-master-add-edit.component.scss" />
     <Content Include="src\app\custvend\custvend.component.scss" />
     <Content Include="src\app\custvend\custvendaddedit\custvendaddedit.component.scss" />
+    <Content Include="src\app\bank\bank.component.scss" />
+    <Content Include="src\app\bank\bankaddedit\bankaddedit.component.scss" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
