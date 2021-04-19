@@ -1,113 +1,162 @@
-<mat-card><button mat-raised-button (click)="saveInvoice()" color="primary"><mat-icon>Save</mat-icon>Save</button></mat-card>
-<mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
-<form [formGroup]="itemForm" class="example-form">
-    <div fxLayout="row wrap" class="example-container" fxLayout.lt-sm="column">
-        <div fxFlex="33">
-            <mat-form-field appearance="legacy" class="example-full-width">
-                <mat-label>Invoice No</mat-label>
-                <input matInput placeholder="Placeholder">
-                <mat-icon matSuffix>receipt</mat-icon>
-            </mat-form-field>
+﻿<mat-card>
+    <div fxLayout="row">
+        <div fxFlex="20" class="m-333">
+          <strong>Create Sales invoice</strong>
         </div>
-        <div fxFlex="33">
-            <mat-form-field appearance="legacy" class="example-full-width">
-                <mat-label>Invoice Date</mat-label>
-                <input matInput placeholder="Placeholder">
-                <mat-icon matSuffix>calendar</mat-icon>
-            </mat-form-field>
-        </div>
-        <div fxFlex="33">
-            <div fxLayout="row wrap" class="full-width" fxLayout.lt-sm="column">
-                <div fxFlex="80">
-                    <mat-form-field class="full-width">
-                        <mat-label>Party</mat-label>
-                        <input matInput
-                               aria-label="State"
-                               [matAutocomplete]="auto"
-                               [formControl]="partyCtrl">
-                        <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option *ngFor="let party of filteredPartyObservable | async"
-                                        (onSelectionChange)="updateForm(party.Value,'CustomerCode')"
-                                        [value]="party.Display">
-                                <small>{{party.Display}}</small> |
-                                <small><mat-icon>mobile</mat-icon> : {{party.MobileNo}}</small>
-                            </mat-option>
-                        </mat-autocomplete>
-
-                    </mat-form-field>
-                </div>
-                <div fxFlex="10">
-                    <button (click)="openPartyPopUp()" mat-raised-button color="primary">
-                        <mat-icon style="padding-right:3px;margin-bottom:2px">
-                            add
-                        </mat-icon>New Party
-                    </button>
-                </div>
-
-            </div>
-        </div>
-        <div fxFlex="33">
-            <mat-form-field appearance="legacy" class="example-full-width">
-                <mat-label>Payment Terms</mat-label>
-                <input matInput placeholder="Placeholder">
-                <mat-icon matSuffix>receipt</mat-icon>
-            </mat-form-field>
-        </div>
-        <div fxFlex="33">
-            <mat-form-field appearance="legacy" class="example-full-width">
-                <mat-label>Due Date</mat-label>
-                <input matInput placeholder="Placeholder">
-                <mat-icon matSuffix>calendar</mat-icon>
-            </mat-form-field>
+        <div fxFlex="80" fxLayoutAlign="end center">
+            <button (click)="saveInvoice()" mat-raised-button color="primary">
+                <mat-icon style="padding-right:3px;margin-bottom:2px">
+                    save
+                </mat-icon>Save Invoice
+            </button>
+           
+           
         </div>
     </div>
-</form>
+</mat-card>
+<mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
 <mat-card>
-    If you dont find your Item in List you can create New Item
-    <button mat-raised-button
-            color="primary">
-        Create Item
-    </button>
+    <form [formGroup]="itemForm" class="example-form">
+        <div fxLayout="row wrap" class="example-container" fxLayout.lt-sm="column">
+            <div fxFlex="33">
+                <mat-form-field appearance="legacy" class="full-width">
+                    <mat-label>Invoice No</mat-label>
+                    <input matInput placeholder="Placeholder">
+                    <mat-icon matSuffix>receipt</mat-icon>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33">
+                <mat-form-field class="full-width">
+                    <input matInput name="InvoiceDate" required hour12Timer="false" [owlDateTime]="InvoiceDate"
+                           [owlDateTimeTrigger]="InvoiceDate" [formControl]="itemForm.controls['InvoiceDate']"
+                           placeholder="Invoice Date" autocomplete="off">
+                    <button type="button" mat-icon-button matSuffix color="primary" [owlDateTimeTrigger]="InvoiceDate">
+                        <mat-icon>event</mat-icon>
+                    </button>
+                    <owl-date-time [pickerType]="'calendar'" #InvoiceDate></owl-date-time>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33">
+                <div fxLayout="row wrap" class="full-width" fxLayout.lt-sm="column">
+                    <div fxFlex="80">
+                        <mat-form-field class="full-width">
+                            <mat-label>Party</mat-label>
+                            <input matInput
+                                   aria-label="State"
+                                   [matAutocomplete]="auto"
+                                   [formControl]="partyCtrl">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let party of filteredPartyObservable | async"
+                                            (onSelectionChange)="updateForm(party.Value,'CustomerCode')"
+                                            [value]="party.Display">
+                                    <small>{{party.Display}}</small> 
+                                    <!--<small><mat-icon>mobile</mat-icon> : {{party.MobileNo}}</small>-->
+                                </mat-option>
+                            </mat-autocomplete>
+
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="10">
+                        <button (click)="openPartyPopUp()" class="side-input-button" mat-raised-button color="accent">
+                            <mat-icon style="padding-right:3px;margin-bottom:2px">
+                                add
+                            </mat-icon>New Party
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div fxFlex="33">
+                <mat-form-field appearance="legacy" class="full-width">
+                    <mat-label>Payment Terms</mat-label>
+                    <input matInput placeholder="Placeholder">
+                    <mat-icon matSuffix>price_change</mat-icon>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33">
+                <mat-form-field class="full-width">
+                    <input matInput name="DueDate" required hour12Timer="false" [owlDateTime]="DueDate"
+                           [owlDateTimeTrigger]="DueDate" [formControl]="itemForm.controls['DueDate']"
+                           placeholder="Due Date" autocomplete="off">
+                    <button type="button" mat-icon-button matSuffix color="primary" [owlDateTimeTrigger]="DueDate">
+                        <mat-icon>event</mat-icon>
+                    </button>
+                    <owl-date-time [pickerType]="'calendar'" #DueDate></owl-date-time>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-card>
+<mat-card>
+   Item Details
 </mat-card>
 <table border="1" class="table_data_section try-data-table">
     <thead>
         <tr>
-            <th class="th-TrayQty">Item</th>
-            <th class="th-TrayQty">Inbvoice No</th>
-            <th class="th-TrayQty">Party</th>
-            <th class="th-TrayQty">Amount</th>
-            <th class="th-Qty">Items</th>
+            <th class="th-TrayQty">
+                <strong> Item</strong>
+                <button (click)="openPartyPopUp()" style="margin-left:4px" mat-raised-button color="accent">
+                    <mat-icon style="padding-right:3px;margin-bottom:2px">
+                        add
+                    </mat-icon>New Inventory
+                </button>
+            </th>
+            <th class="th-TrayQty">HSN</th>
+            <th class="th-TrayQty">QTY</th>
+            <th class="th-TrayQty">PRICE/ITEM (₹)</th>
+            <th class="th-Qty">DISCOUNT</th>
+            <th class="th-Qty">TAX</th>
+            <th class="th-Qty">AMOUNT</th>
             <th class="th-1">Actions</th>
         </tr>
     </thead>
 
     <tbody>
-        <tr *ngFor="let item of [1,2,3,4,5,6]">
+        <tr *ngFor="let item of SalesItemsArray">
             <td>
-                <mat-form-field appearance="legacy" class="example-full-width">
-                    <mat-label>Select Item</mat-label>
-                    <input matInput placeholder="Placeholder">
-                    <mat-icon matSuffix>receipt</mat-icon>
+                <mat-form-field class="full-width">
+                    <mat-label>Party</mat-label>
+                    <input matInput name="Flutter" #Flutter="ngModel" placeholder="Flutter Name" [matAutocomplete]="autoStyleCode"
+                           [(ngModel)]="row.currentItem" (input)="StyleNofilter(row?.currentFlutter)">
+                    <mat-autocomplete #autoStyleCode="matAutocomplete">
+                        <mat-option *ngFor="let item of FlutterHelpObservable | async" 
+                                    (onSelectionChange)="updateitemForm(rowIndex,item.Value,item.Display)"
+                                    [value]="item.Display">
+                            <span>{{ item.Display }}</span>
+                        </mat-option>
+                    </mat-autocomplete>
+
                 </mat-form-field>
             </td>
             <td>
-                INT/001
+                {{item.HSN}}
             </td>
             <td>
-                ABC Infotech Pvt Ltd
+                <mat-form-field appearance="legacy" class="full-width">
+                    <mat-label>Enter Qty</mat-label>
+                    <input ([ngModel])="item.Qty" matInput placeholder="Placeholder">
+                    
+                </mat-form-field>
             </td>
             <td>
-                5,58,000
+                <mat-form-field appearance="legacy" class="full-width">
+                    <mat-label>Enter Price</mat-label>
+                    <input ([ngModel])="item.PerPrice" matInput placeholder="Placeholder">
+                </mat-form-field>
             </td>
+            <td>
+                {{item.Discount}}
+            </td>
+            <td>
+                {{item.IGST}}
+            </td>
+            <td>
+                {{item.Amount}}
+            </td>
+          
             <td>
                 <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
-                    <mat-icon>info</mat-icon>
-                </button>
-
-            </td>
-            <td>
-                <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
-                    <mat-icon>edit</mat-icon>
+                    <mat-icon>add</mat-icon>
                 </button>
                 <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
                     <mat-icon>delete</mat-icon>

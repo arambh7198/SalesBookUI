@@ -1,5 +1,7 @@
+/// <reference path="product-master/product-master-add-edit/product-master-add-edit.component.ts" />
 import { Injectable } from '@angular/core';
 import { CustvendaddeditComponent } from './custvend/custvendaddedit/custvendaddedit.component'
+import { ProductMasterAddEditComponent } from './product-master/product-master-add-edit/product-master-add-edit.component'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, interval, Subject, BehaviorSubject } from 'rxjs';
@@ -36,7 +38,7 @@ export class CommonService {
                 Locked: (data.Locked || false)
             }
 
-            let title = isNew ? 'Add Item' : 'Update Item';
+            let title = isNew ? 'Add Party' : 'Update Party';
             let dialogRef: MatDialogRef<any> = this.dialog.open(CustvendaddeditComponent, {
                 width: '720px',
                 disableClose: false,
@@ -46,12 +48,45 @@ export class CommonService {
                 .subscribe(dataSubmitted => {
                     //  this.loader.close();
                     if (dataSubmitted) {
-                        this.snack.open(isNew ? 'Item Added!' : 'Product Updated!', 'OK', { duration: 4000 })
+                        this.snack.open(isNew ? 'Party Added!' : 'Party Updated!', 'OK', { duration: 4000 })
                         //    this.getItems();
                     }
                     observer.next(true);
                     observer.complete();
                 })
         });
+    }
+
+
+
+    public addedititem(data: any = {}, isNew = true) {
+        return new Observable((observer) => {
+        let passObject = {}
+
+            passObject = {
+                Code: (data.Code || -1),
+                ProductName: (data.ProductName || null),
+                Description : (data.Description || null),
+                HSNCode: (data.HSNCode || null),
+                BasePrice: (data.BasePrice || null),
+                Locked: (data.Locked || false)
+            }
+
+        let title = isNew ? 'Add Item' : 'Update Item';
+        let dialogRef: MatDialogRef<any> = this.dialog.open(ProductMasterAddEditComponent, {
+            width: '720px',
+            disableClose: false,
+            data: { title: title, payload: passObject, isNewDialog: isNew },
+        })
+        dialogRef.afterClosed()
+            .subscribe(dataSubmitted => {
+                //  this.loader.close();
+                if (dataSubmitted) {
+                    this.snack.open(isNew ? 'Item Added!' : 'Product Updated!', 'OK', { duration: 4000 })
+                }
+                observer.next(true);
+                observer.complete();
+            })
+        })
     }
 }

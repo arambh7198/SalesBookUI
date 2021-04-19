@@ -14,6 +14,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator'; 
 import {MatDialogModule} from '@angular/material/dialog';
+import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 
 
 import {MatSnackBarModule} from '@angular/material/snack-bar'; 
@@ -63,13 +64,17 @@ import { BankaddeditComponent } from './bank/bankaddedit/bankaddedit.component';
         MatInputModule,
         MatDialogModule,
         MatSnackBarModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule 
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
         multi: true
-    }, appSettings],
+    }, appSettings,
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'en-SG' }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ProductMasterAddEditComponent } from './product-master-add-edit/product-master-add-edit.component';
 import { Subscription, of } from 'rxjs';
+
+import { CommonService } from '../common.service'
+
 @Component({
     selector: 'app-product-master',
     templateUrl: './product-master.component.html',
@@ -23,6 +26,7 @@ export class ProductMasterComponent implements OnInit {
         private dialog: MatDialog,
         private snack: MatSnackBar,
         private __productMasterService: ProductMasterService,
+        private __commonService: CommonService
     ) { }
 
     ngOnInit() {
@@ -72,35 +76,9 @@ export class ProductMasterComponent implements OnInit {
     }
 
     openPopUp(data: any = {}, isNew = true) {
-        let passObject = {}
-
-        if (!isNew) {
-            passObject = {
-                Code: data.Code,
-                ProductName: data.ProductName,
-                Description: data.Description,
-                HSNCode: data.HSNCode,
-                BasePrice: data.BasePrice,
-                Locked: data.Locked
-            }
-        } else {
-            passObject = Object.assign({}, this.itemModel);
-        }
-
-        let title = isNew ? 'Add Item' : 'Update Item';
-        let dialogRef: MatDialogRef<any> = this.dialog.open(ProductMasterAddEditComponent, {
-            width: '720px',
-            disableClose: false,
-            data: { title: title, payload: passObject, isNewDialog: isNew },
-        })
-        dialogRef.afterClosed()
-            .subscribe(dataSubmitted => {
-                //  this.loader.close();
-                if (dataSubmitted) {
-                    this.snack.open(isNew ? 'Item Added!' : 'Product Updated!', 'OK', { duration: 4000 })
-                    this.getItems();
-                }
-            })
+        this.__commonService.addedititem(data, isNew).subscribe(RtnData => {
+            this.getItems();
+        });
     }
 
     deleteItem(row) {

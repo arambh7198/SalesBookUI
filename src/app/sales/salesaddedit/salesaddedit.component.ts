@@ -5,6 +5,7 @@ import { map, startWith, debounceTime, switchMap, distinctUntilChanged } from 'r
 import { SalesService } from '../sales.service'
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { CommonService } from '../../common.service'
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-salesaddedit',
@@ -15,9 +16,17 @@ export class SalesaddeditComponent implements OnInit {
     public itemForm: FormGroup;
     public errorMessage: string = "";
 
+    public SalesItemObj: any;
+    public SalesItemsArray: any = [];
+
+
+
 
     partyCtrl = new FormControl();
     filteredPartyObservable: Observable<any>;
+    itemObservable: Observable<any>;
+
+
     
     constructor(private __route: Router,
         private __salesService: SalesService,
@@ -38,6 +47,25 @@ export class SalesaddeditComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildItemForm({})
+        this.createNewItemUI();
+    }
+
+
+    public createNewItemUI() {
+        this.SalesItemObj = {
+            Code        : -1,
+            SalesCode   : null,
+            ItemCode    : null,
+            Amount      : null,
+            CGST        : null,
+            SGST        : null,
+            IGST        : null,
+            Discount    : null,
+            Qty         : null,
+            Locked      : false
+        }
+        this.SalesItemsArray.push(JSON.parse(JSON.stringify(this.SalesItemObj)))
+
     }
 
 
@@ -46,6 +74,7 @@ export class SalesaddeditComponent implements OnInit {
             Code: new FormControl(item.Code || -1),
             InvoiceNo: new FormControl(item.InvoiceNo || null),
             InvoiceDate: new FormControl(item.InvoiceDate || null),
+            DueDate: new FormControl(item.DueDate || null),
             BankCode: new FormControl(item.BankCode || null),
             CustomerCode: new FormControl(item.CustomerCode || null),
             CompanyCode: new FormControl(item.CompanyCode || null)
@@ -66,6 +95,8 @@ export class SalesaddeditComponent implements OnInit {
     public saveInvoice() {
     
         const SendObj = { ...this.itemForm.getRawValue() };
+        this.UpdateSavingDateTimeFormat(SendObj);
+        SendObj.SalesItems = this.SalesItemsArray;
         this.__salesService.saveSales(SendObj)
             .subscribe(data => {
                 console.log(data)
@@ -80,8 +111,6 @@ export class SalesaddeditComponent implements OnInit {
     }
 
     updateForm(Value: string, componentid: string) {
-
-        alert(Value)
         if (componentid && Value) {
             this.itemForm['controls'][componentid].setValue(Value);  
             this.saveInvoice();
@@ -90,9 +119,43 @@ export class SalesaddeditComponent implements OnInit {
         }
     }
 
+    itemfilter(val: string) {
+        this.itemObservable =
+            this.__salesService.(val).pipe(
+                startWith(null),
+                debounceTime(200),
+                distinctUntilChanged())
+    }
+    updateitemForm(row, value: any, Display: any) {
+        if (value) {
+            this.SalesItemsArray[row].ItemCode = value;
+        } else {
+            console.log('ooops');
+        }
+
+    }
+
 
 
     public openPartyPopUp() {
-        this.__commonService.addeditparty({}, true).subscribe();
+        this.__commonService.addeditparty({}, true).subscribe(RtnData => {
+            this.filteredPartyObservable.subscribe();
+        });
+    }
+
+    UpdateSavingDateTimeFormat(SendObj) {
+        SendObj['InvoiceDate'] = this.ChangeFormatDate(SendObj['InvoiceDate'], "date");
+    }
+
+    ChangeFormatDate(DateTimeModel, Type) {
+        if (Type == "date") {
+            return DateTimeModel ? moment(DateTimeModel).format('MM/DD/YYYY') : null;
+        }
+        else if (Type == "datetime") {
+            return DateTimeModel ? moment(DateTimeModel).format('MM/DD/YYYY HH:mm:ss') : null;
+        }
+        else if (Type == "time") {
+            return DateTimeModel ? moment(DateTimeModel).format('HH:mm:ss') : null;
+        }
     }
 }
