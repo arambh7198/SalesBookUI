@@ -1,8 +1,8 @@
 <mat-card><button mat-raised-button (click)="saveInvoice()" color="primary"><mat-icon>Save</mat-icon>Save</button></mat-card>
 <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
 <form [formGroup]="itemForm" class="example-form">
-    <div fxLayout="row wrap"  class="example-container" fxLayout.lt-sm="column">
-        <div fxFlex="33" >
+    <div fxLayout="row wrap" class="example-container" fxLayout.lt-sm="column">
+        <div fxFlex="33">
             <mat-form-field appearance="legacy" class="example-full-width">
                 <mat-label>Invoice No</mat-label>
                 <input matInput placeholder="Placeholder">
@@ -16,26 +16,35 @@
                 <mat-icon matSuffix>calendar</mat-icon>
             </mat-form-field>
         </div>
-        <div fxFlex="33" >
-            <mat-form-field class="example-full-width">
-                <mat-label>Party</mat-label>
-                <input matInput
-                       aria-label="State"
-                       [matAutocomplete]="auto"
-                       [formControl]="partyCtrl">
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let party of filteredPartyObservable | async"
-                                (onSelectionChange)="updateForm(party.Value,'CustomerCode')"
-                                [value]="party.Display">
-                        <span>{{party.Display}}</span> |
-                        <small><mat-icon>mobile</mat-icon> : {{party.MobileNo}}</small>
+        <div fxFlex="33">
+            <div fxLayout="row wrap" class="full-width" fxLayout.lt-sm="column">
+                <div fxFlex="80">
+                    <mat-form-field class="full-width">
+                        <mat-label>Party</mat-label>
+                        <input matInput
+                               aria-label="State"
+                               [matAutocomplete]="auto"
+                               [formControl]="partyCtrl">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let party of filteredPartyObservable | async"
+                                        (onSelectionChange)="updateForm(party.Value,'CustomerCode')"
+                                        [value]="party.Display">
+                                <small>{{party.Display}}</small> |
+                                <small><mat-icon>mobile</mat-icon> : {{party.MobileNo}}</small>
+                            </mat-option>
+                        </mat-autocomplete>
 
-                        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="10">
+                    <button (click)="openPartyPopUp()" mat-raised-button color="primary">
+                        <mat-icon style="padding-right:3px;margin-bottom:2px">
+                            add
+                        </mat-icon>New Party
+                    </button>
+                </div>
+
+            </div>
         </div>
         <div fxFlex="33">
             <mat-form-field appearance="legacy" class="example-full-width">
@@ -55,8 +64,11 @@
 </form>
 <mat-card>
     If you dont find your Item in List you can create New Item
-    <button mat-raised-button 
-                  color="primary">Create Item</button></mat-card>
+    <button mat-raised-button
+            color="primary">
+        Create Item
+    </button>
+</mat-card>
 <table border="1" class="table_data_section try-data-table">
     <thead>
         <tr>

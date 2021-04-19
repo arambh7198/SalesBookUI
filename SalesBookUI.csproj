@@ -48,6 +48,8 @@
     <TypeScriptCompile Include="src\app\bank\bank.service.ts" />
     <TypeScriptCompile Include="src\app\bank\bankaddedit\bankaddedit.component.spec.ts" />
     <TypeScriptCompile Include="src\app\bank\bankaddedit\bankaddedit.component.ts" />
+    <TypeScriptCompile Include="src\app\common.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\common.service.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvend.component.spec.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvend.component.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvend.service.spec.ts" />

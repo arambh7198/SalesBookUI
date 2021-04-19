@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { CustvendaddeditComponent } from './custvendaddedit/custvendaddedit.component';
 import { Subscription, of } from 'rxjs';
+import {CommonService} from '../common.service'
+
 @Component({
   selector: 'app-custvend',
   templateUrl: './custvend.component.html',
@@ -25,6 +27,7 @@ export class CustvendComponent implements OnInit {
         private dialog: MatDialog,
         private snack: MatSnackBar,
         private __custvendService: CustvendService,
+        private __commonService: CommonService
         
     ) { }
 
@@ -83,43 +86,9 @@ export class CustvendComponent implements OnInit {
     }
 
     openPopUp(data: any = {}, isNew = true) {
-        let passObject = {}
-
-        if (!isNew) {
-            passObject = {
-                Code: data.Code,
-                Name:  data.Name,
-                IsCust: true,
-                EmailID: data.EmailID,
-                MobileNo: data.MobileNo,
-                Add1: data.Add1,
-                Add2: data.Add2,
-                City: data.City,
-                State: data.State,
-                Country: data.Country,
-                PIN: data.PIN,
-                PAN: data.PAN,
-                GST: data.GST,
-                Locked: data.Locked
-            }
-        } else {
-            passObject = Object.assign({}, this.itemModel);
-        }
-
-        let title = isNew ? 'Add Item' : 'Update Item';
-        let dialogRef: MatDialogRef<any> = this.dialog.open(CustvendaddeditComponent, {
-            width: '720px',
-            disableClose: false,
-            data: { title: title, payload: passObject, isNewDialog: isNew },
+        this.__commonService.addeditparty(data, isNew).subscribe(RtnData => {
+            this.getItems();
         })
-        dialogRef.afterClosed()
-            .subscribe(dataSubmitted => {
-                //  this.loader.close();
-                if (dataSubmitted) {
-                    this.snack.open(isNew ? 'Item Added!' : 'Product Updated!', 'OK', { duration: 4000 })
-                    this.getItems();
-                }
-            })
     }
 
     deleteItem(row) {

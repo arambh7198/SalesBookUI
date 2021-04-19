@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import { map, startWith, debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import { SalesService } from '../sales.service'
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { CommonService } from '../../common.service'
 
 @Component({
     selector: 'app-salesaddedit',
@@ -21,6 +22,7 @@ export class SalesaddeditComponent implements OnInit {
     constructor(private __route: Router,
         private __salesService: SalesService,
         private __fb: FormBuilder,
+        private __commonService: CommonService
     ) {
         this.filteredPartyObservable = this.partyCtrl.valueChanges
             .pipe(
@@ -86,5 +88,11 @@ export class SalesaddeditComponent implements OnInit {
         } else {
             console.log('ooops');
         }
+    }
+
+
+
+    public openPartyPopUp() {
+        this.__commonService.addeditparty({}, true).subscribe();
     }
 }
