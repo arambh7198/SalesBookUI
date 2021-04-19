@@ -216,7 +216,7 @@ top: 46px;
 }
 
 .try-data-table tr td:last-child, .try-data-table tr th:last-child{
-    width:50px;
+    //width:50px;
 }
 
 .price .mat-button{
@@ -316,7 +316,7 @@ datatable-row-center, datatable-body-row
 
 .table_data_section tr td, .table_data_section tr th{
    border:solid 1px #dee2e6;
-   padding:6px;
+ //  padding:1px;
 }
 
 .table_data_section tr th{
@@ -406,3 +406,8 @@ box-sizing: border-box;
     width:200px;
     margin:0 auto;
 }
+
+.full-width{
+    width:90%
+}
+

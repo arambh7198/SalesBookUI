@@ -1,1 +1,68 @@
-<p>product-master-add-edit works!</p>
+<h1 matDialogTitle>{{data.title}}</h1>
+<mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="ProductName" #ProductName required [formControl]="itemForm.controls['ProductName']" maxlength="30" placeholder="ProductName" autocomplete="off">
+                <!--<mat-hint align="end">{{ProductName.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['ProductName'].hasError('required') && itemForm.controls['ProductName'].touched"
+                   class="form-error-msg">ProductName is required</small>
+            <small *ngIf="itemForm.controls['ProductName'].hasError('minlength') && itemForm.controls['ProductName'].touched"
+                   class="form-error-msg">ProductName require at least{{itemForm.controls['ProductName'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['ProductName'].hasError('maxlength') && itemForm.controls['ProductName'].touched"
+                   class="form-error-msg">ProductName can not contain more than{{itemForm.controls['ProductName'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="Description" #Description [formControl]="itemForm.controls['Description']" maxlength="30" placeholder="Description" autocomplete="off">
+                <!--<mat-hint align="end">{{Description.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['Description'].hasError('required') && itemForm.controls['Description'].touched"
+                   class="form-error-msg">Description is required</small>
+            <small *ngIf="itemForm.controls['Description'].hasError('minlength') && itemForm.controls['Description'].touched"
+                   class="form-error-msg">Description require at least{{itemForm.controls['Description'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['Description'].hasError('maxlength') && itemForm.controls['Description'].touched"
+                   class="form-error-msg">Description can not contain more than{{itemForm.controls['Description'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="HSNCode" #HSNCode  [formControl]="itemForm.controls['HSNCode']" maxlength="30" placeholder="HSNCode" autocomplete="off">
+                <!--<mat-hint align="end">{{HSNCode.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['HSNCode'].hasError('required') && itemForm.controls['HSNCode'].touched"
+                   class="form-error-msg">HSNCode is required</small>
+            <small *ngIf="itemForm.controls['HSNCode'].hasError('minlength') && itemForm.controls['HSNCode'].touched"
+                   class="form-error-msg">HSNCode require at least{{itemForm.controls['HSNCode'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['HSNCode'].hasError('maxlength') && itemForm.controls['HSNCode'].touched"
+                   class="form-error-msg">HSNCode can not contain more than{{itemForm.controls['HSNCode'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput name="BasePrice" #BasePrice  [formControl]="itemForm.controls['BasePrice']" maxlength="30" placeholder="BasePrice" autocomplete="off">
+                <!--<mat-hint align="end">{{BasePrice.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['BasePrice'].hasError('required') && itemForm.controls['BasePrice'].touched"
+                   class="form-error-msg">BasePrice is required</small>
+            <small *ngIf="itemForm.controls['BasePrice'].hasError('minlength') && itemForm.controls['BasePrice'].touched"
+                   class="form-error-msg">BasePrice require at least{{itemForm.controls['BasePrice'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['BasePrice'].hasError('maxlength') && itemForm.controls['BasePrice'].touched"
+                   class="form-error-msg">BasePrice can not contain more than{{itemForm.controls['BasePrice'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+
+        <div fxFlex="50" class="pt-1 pr-1" *ngIf="!data.isNewDialog">
+            <mat-slide-toggle [formControl]="itemForm.controls['Locked']">Locked</mat-slide-toggle>
+        </div>
+
+        <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="primary" [disabled]="itemForm.invalid">{{"SAVE"}}</button>
+            <span fxFlex></span>
+            <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+        </div>
+    </div>
+</form>

@@ -12,6 +12,15 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
+import {MatPaginatorModule} from '@angular/material/paginator'; 
+import {MatDialogModule} from '@angular/material/dialog';
+
+
+import {MatSnackBarModule} from '@angular/material/snack-bar'; 
+
+
+import {MatSlideToggleModule} from '@angular/material/slide-toggle'; 
+
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import {TokenInterceptor} from './token.interceptor';
@@ -19,6 +28,8 @@ import { appSettings } from './appsettings';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductMasterComponent } from './product-master/product-master.component';
 import { ProductMasterAddEditComponent } from './product-master/product-master-add-edit/product-master-add-edit.component';
+import { CustvendComponent } from './custvend/custvend.component';
+import { CustvendaddeditComponent } from './custvend/custvendaddedit/custvendaddedit.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +38,9 @@ import { ProductMasterAddEditComponent } from './product-master/product-master-a
         SalesaddeditComponent,
         LoginComponent,
         ProductMasterComponent,
-        ProductMasterAddEditComponent
+        ProductMasterAddEditComponent,
+        CustvendComponent,
+        CustvendaddeditComponent
     ],
     imports: [
         BrowserModule,
@@ -42,7 +55,11 @@ import { ProductMasterAddEditComponent } from './product-master/product-master-a
         MatButtonModule,
         MatIconModule,
         MatAutocompleteModule,
-        MatInputModule
+        MatPaginatorModule,
+        MatInputModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        MatSlideToggleModule
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,

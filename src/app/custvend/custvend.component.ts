@@ -1,19 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProductMasterService } from './product-master.service';
+import { CustvendService } from './custvend.service';
 
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ProductMasterAddEditComponent } from './product-master-add-edit/product-master-add-edit.component';
+import { CustvendaddeditComponent } from './custvendaddedit/custvendaddedit.component';
 import { Subscription, of } from 'rxjs';
 @Component({
-    selector: 'app-product-master',
-    templateUrl: './product-master.component.html',
-    styleUrls: ['./product-master.component.scss']
+  selector: 'app-custvend',
+  templateUrl: './custvend.component.html',
+  styleUrls: ['./custvend.component.scss']
 })
-export class ProductMasterComponent implements OnInit {
+export class CustvendComponent implements OnInit {
+
     public items: any;
     public itemModel: any;
+
 
     public getItemSub: Subscription;
     public query: any;
@@ -22,7 +24,8 @@ export class ProductMasterComponent implements OnInit {
     constructor(
         private dialog: MatDialog,
         private snack: MatSnackBar,
-        private __productMasterService: ProductMasterService,
+        private __custvendService: CustvendService,
+        
     ) { }
 
     ngOnInit() {
@@ -34,10 +37,18 @@ export class ProductMasterComponent implements OnInit {
 
         this.itemModel = {
             Code: null,
-            ProductName: null,
-            Description: null,
-            HSNCode: null,
-            BasePrice: null,
+            Name: null,
+            IsCust: true,
+            EmailID: null,
+            MobileNo: null,
+            Add1     : null,
+            Add2     : null,
+            City     : null,
+            State    : null,
+            Country  : null,
+            PIN      : null,
+            PAN      : null,
+            GST      : null,
             Locked: false
         }
 
@@ -59,7 +70,7 @@ export class ProductMasterComponent implements OnInit {
     }
 
     getItems() {
-        this.getItemSub = this.__productMasterService.getData(this.query)
+        this.getItemSub = this.__custvendService.getData(this.query)
             .subscribe(data => {
                 this.items = data.Data;
                 this.query.TotalCount = data.DataCount;
@@ -77,10 +88,18 @@ export class ProductMasterComponent implements OnInit {
         if (!isNew) {
             passObject = {
                 Code: data.Code,
-                ProductName: data.ProductName,
-                Description: data.Description,
-                HSNCode: data.HSNCode,
-                BasePrice: data.BasePrice,
+                Name:  data.Name,
+                IsCust: true,
+                EmailID: data.EmailID,
+                MobileNo: data.MobileNo,
+                Add1: data.Add1,
+                Add2: data.Add2,
+                City: data.City,
+                State: data.State,
+                Country: data.Country,
+                PIN: data.PIN,
+                PAN: data.PAN,
+                GST: data.GST,
                 Locked: data.Locked
             }
         } else {
@@ -88,7 +107,7 @@ export class ProductMasterComponent implements OnInit {
         }
 
         let title = isNew ? 'Add Item' : 'Update Item';
-        let dialogRef: MatDialogRef<any> = this.dialog.open(ProductMasterAddEditComponent, {
+        let dialogRef: MatDialogRef<any> = this.dialog.open(CustvendaddeditComponent, {
             width: '720px',
             disableClose: false,
             data: { title: title, payload: passObject, isNewDialog: isNew },
@@ -107,7 +126,7 @@ export class ProductMasterComponent implements OnInit {
         if (confirm(`Delete ${row.ProductName}?`)) {
 
             // this.loader.open();
-            this.__productMasterService.deleteData(row)
+            this.__custvendService.deleteData(row)
                 .subscribe(dataSubmitted => {
                     //  this.loader.close();
                     if (dataSubmitted) {
@@ -158,4 +177,5 @@ export class ProductMasterComponent implements OnInit {
     searchCallback() {
         this.getItems();
     }
+
 }

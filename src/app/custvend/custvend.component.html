@@ -4,7 +4,7 @@
             <button (click)="openPopUp()" mat-raised-button color="primary">
                 <mat-icon style="padding-right:3px;margin-bottom:2px">
                     add
-                </mat-icon>Create New Product
+                </mat-icon>Add Party
             </button>
         </div>
         <div fxFlex="80" fxLayoutAlign="end center">
@@ -21,25 +21,21 @@
         <thead>
             <tr>
                 <th class="th-TrayQty"
-                    (click)="sortClick('ProductName')"
+                    (click)="sortClick('Name')"
                     [ngClass]="{ 'sorting': isSorting('Name'), 'sorting_asc': isSortAsc('Name'), 'sorting_desc': isSortDesc('Name') }">
                     Name
                 </th>
                 <th class="th-TrayQty"
-                    (click)="sortClick('Description')"
-                    [ngClass]="{ 'sorting': isSorting('Description'), 'sorting_asc': isSortAsc('Description'), 'sorting_desc': isSortDesc('Description') }">
-                    Description
+                    (click)="sortClick('EmailID')"
+                    [ngClass]="{ 'sorting': isSorting('EmailID'), 'sorting_asc': isSortAsc('EmailID'), 'sorting_desc': isSortDesc('EmailID') }">
+                    EmailID
                 </th>
                 <th class="th-TrayQty"
-                    (click)="sortClick('HSNCode')"
-                    [ngClass]="{ 'sorting': isSorting('HSNCode'), 'sorting_asc': isSortAsc('HSNCode'), 'sorting_desc': isSortDesc('HSNCode') }">
-                    HSNCode
+                    (click)="sortClick('MobileNo')"
+                    [ngClass]="{ 'sorting': isSorting('MobileNo'), 'sorting_asc': isSortAsc('MobileNo'), 'sorting_desc': isSortDesc('MobileNo') }">
+                    MobileNo
                 </th>
-                <th class="th-TrayQty"
-                    (click)="sortClick('BasePrice')"
-                    [ngClass]="{ 'sorting': isSorting('BasePrice'), 'sorting_asc': isSortAsc('BasePrice'), 'sorting_desc': isSortDesc('BasePrice') }">
-                    BasePrice
-                </th>
+                
                 <th class="th-TrayQty">
                     Locked
                 </th>
@@ -50,21 +46,21 @@
         <tbody>
             <tr *ngFor="let item of items">
                 <td>
-                    {{item.ProductName}}<br>
+                    {{item.Name}}<br>
 
                 </td>
                 <td>
-                    <small>{{item.Description}}</small>
+                  {{item.EmailID}}
                 </td>
                 <td>
-                    {{item.HSNCode}}
+                    {{item.MobileNo}}
                 </td>
-                <td>
+                <!--<td>
                     {{item.BasePrice | currency:'INR'}}
-                </td>
+                </td>-->
                 <td>
                     <mat-slide-toggle class="example-margin" style="margin-left:70px"
-                                      color="warn" 
+                                      color="warn"
                                       [checked]="item.Locked"
                                       [disabled]="true">
                     </mat-slide-toggle>

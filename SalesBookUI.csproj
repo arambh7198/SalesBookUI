@@ -23,6 +23,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\custvend\custvend.component.html" />
+    <Content Include="src\app\custvend\custvendaddedit\custvendaddedit.component.html" />
     <Content Include="src\app\login\login.component.html" />
     <Content Include="src\app\product-master\product-master-add-edit\product-master-add-edit.component.html" />
     <Content Include="src\app\product-master\product-master.component.html" />
@@ -38,6 +40,12 @@
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\appsettings.ts" />
+    <TypeScriptCompile Include="src\app\custvend\custvend.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\custvend\custvend.component.ts" />
+    <TypeScriptCompile Include="src\app\custvend\custvend.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\custvend\custvend.service.ts" />
+    <TypeScriptCompile Include="src\app\custvend\custvendaddedit\custvendaddedit.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\custvend\custvendaddedit\custvendaddedit.component.ts" />
     <TypeScriptCompile Include="src\app\login\login.component.spec.ts" />
     <TypeScriptCompile Include="src\app\login\login.component.ts" />
     <TypeScriptCompile Include="src\app\login\login.service.ts" />
@@ -45,8 +53,11 @@
     <TypeScriptCompile Include="src\app\product-master\product-master-add-edit\product-master-add-edit.component.ts" />
     <TypeScriptCompile Include="src\app\product-master\product-master.component.spec.ts" />
     <TypeScriptCompile Include="src\app\product-master\product-master.component.ts" />
+    <TypeScriptCompile Include="src\app\product-master\product-master.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\product-master\product-master.service.ts" />
     <TypeScriptCompile Include="src\app\sales\sales.component.spec.ts" />
     <TypeScriptCompile Include="src\app\sales\sales.component.ts" />
+    <TypeScriptCompile Include="src\app\sales\sales.service.spec.ts" />
     <TypeScriptCompile Include="src\app\sales\sales.service.ts" />
     <TypeScriptCompile Include="src\app\sales\salesaddedit\salesaddedit.component.spec.ts" />
     <TypeScriptCompile Include="src\app\sales\salesaddedit\salesaddedit.component.ts" />
@@ -70,6 +81,8 @@
     <Content Include="src\app\login\login.component.scss" />
     <Content Include="src\app\product-master\product-master.component.scss" />
     <Content Include="src\app\product-master\product-master-add-edit\product-master-add-edit.component.scss" />
+    <Content Include="src\app\custvend\custvend.component.scss" />
+    <Content Include="src\app\custvend\custvendaddedit\custvendaddedit.component.scss" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
