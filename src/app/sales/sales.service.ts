@@ -23,9 +23,22 @@ export class SalesService {
         }
     }
 
+    public getBankInfo(query: any): Observable<any> {
+        if (query) {
+            return this.__http.post(this.__appSettings.API_Config + this.commonControllerName + '/getBankInfo', query);
+        }
+    }
+
     public saveSales(data: any): Observable<any> {
         if (data) {
             return this.__http.post(this.__appSettings.API_Config + this.controllerName + '/saveSales', data);
+        }
+    }
+
+
+    public getItemInfo(query: any): Observable<any> {
+        if (query) {
+            return this.__http.post(this.__appSettings.API_Config + this.commonControllerName + '/getItemInfo', query);
         }
     }
 

@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BankaddeditComponent } from './bankaddedit/bankaddedit.component';
 import { Subscription, of } from 'rxjs';
 
+import {CommonService} from '../common.service'
 
 @Component({
     selector: 'app-bank',
@@ -28,6 +29,7 @@ export class BankComponent implements OnInit {
         private dialog: MatDialog,
         private snack: MatSnackBar,
         private __bankService: BankService,
+        private __commonService: CommonService
 
     ) { }
 
@@ -81,39 +83,9 @@ export class BankComponent implements OnInit {
     }
 
     openPopUp(data: any = {}, isNew = true) {
-        let passObject = {}
-
-        if (!isNew) {
-            passObject = {
-                Code: data.Code,
-                BankName: data.BankName,
-                BankAdd1: data.BankAdd1,
-                BankAdd2: data.BankAdd2,
-                City: data.City,
-                State: data.State,
-                Country: data.Country,
-                AccNo: data.AccNo,
-                IFSCCode: data.IFSCCode,
-                Locked : data.Locked
-            }
-        } else {
-            passObject = Object.assign({}, this.itemModel);
-        }
-
-        let title = isNew ? 'Add Item' : 'Update Item';
-        let dialogRef: MatDialogRef<any> = this.dialog.open(BankaddeditComponent, {
-            width: '720px',
-            disableClose: false,
-            data: { title: title, payload: passObject, isNewDialog: isNew },
+        this.__commonService.addeditbank(data, isNew).subscribe(RtnData => {
+            this.getItems();
         })
-        dialogRef.afterClosed()
-            .subscribe(dataSubmitted => {
-                //  this.loader.close();
-                if (dataSubmitted) {
-                    this.snack.open(isNew ? 'Item Added!' : 'Product Updated!', 'OK', { duration: 4000 })
-                    this.getItems();
-                }
-            })
     }
 
     deleteItem(row) {

@@ -24,10 +24,14 @@ export class SalesaddeditComponent implements OnInit {
 
     partyCtrl = new FormControl();
     filteredPartyObservable: Observable<any>;
+
+    bankCtrl = new FormControl();
+    filteredBankObservable: Observable<any>;
+
     itemObservable: Observable<any>;
 
 
-    
+
     constructor(private __route: Router,
         private __salesService: SalesService,
         private __fb: FormBuilder,
@@ -41,6 +45,16 @@ export class SalesaddeditComponent implements OnInit {
             switchMap(val => {
                 return this._filterParty(val || '')
             })
+        );
+
+        this.filteredBankObservable = this.bankCtrl.valueChanges
+            .pipe(
+            startWith(null),
+            debounceTime(200),
+            distinctUntilChanged(),
+            switchMap(val => {
+                return this._filterBank(val || '')
+            })
             );
 
     }
@@ -48,21 +62,23 @@ export class SalesaddeditComponent implements OnInit {
     ngOnInit(): void {
         this.buildItemForm({})
         this.createNewItemUI();
+        this.itemfilter('')
     }
 
 
     public createNewItemUI() {
         this.SalesItemObj = {
-            Code        : -1,
-            SalesCode   : null,
-            ItemCode    : null,
-            Amount      : null,
-            CGST        : null,
-            SGST        : null,
-            IGST        : null,
-            Discount    : null,
-            Qty         : null,
-            Locked      : false
+            Code: -1,
+            SalesCode: null,
+            ItemCode: null,
+            Amount: null,
+            PerPrice: null,
+            CGST: null,
+            SGST: null,
+            IGST: null,
+            Discount: null,
+            Qty: null,
+            Locked: false
         }
         this.SalesItemsArray.push(JSON.parse(JSON.stringify(this.SalesItemObj)))
 
@@ -78,22 +94,31 @@ export class SalesaddeditComponent implements OnInit {
             BankCode: new FormControl(item.BankCode || null),
             CustomerCode: new FormControl(item.CustomerCode || null),
             CompanyCode: new FormControl(item.CompanyCode || null)
-            
+
         })
     }
 
     private _filterParty(value: string): Observable<any> {
         //const filterValue = value.toLowerCase();
         let SndObj = {
-            filter : value
+            filter: value
         }
         //return this.states.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
         return this.__salesService.getPartyInfo(SndObj)
     }
 
+    private _filterBank(value: string): Observable<any> {
+        //const filterValue = value.toLowerCase();
+        let SndObj = {
+            filter: value
+        }
+        //return this.states.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
+        return this.__salesService.getBankInfo(SndObj)
+    }
+
 
     public saveInvoice() {
-    
+
         const SendObj = { ...this.itemForm.getRawValue() };
         this.UpdateSavingDateTimeFormat(SendObj);
         SendObj.SalesItems = this.SalesItemsArray;
@@ -102,7 +127,7 @@ export class SalesaddeditComponent implements OnInit {
                 console.log(data)
                 alert()
             }, err => {
-                
+
                 this.errorMessage = err.error ? err.error.ExceptionMessage : "Something Went Wrong"
                 //this.snack.open(err.error ? err.error.ExceptionMessage : "Something Went Wrong", 'Clear', {
                 //    duration: 4000,
@@ -112,7 +137,7 @@ export class SalesaddeditComponent implements OnInit {
 
     updateForm(Value: string, componentid: string) {
         if (componentid && Value) {
-            this.itemForm['controls'][componentid].setValue(Value);  
+            this.itemForm['controls'][componentid].setValue(Value);
             this.saveInvoice();
         } else {
             console.log('ooops');
@@ -120,18 +145,28 @@ export class SalesaddeditComponent implements OnInit {
     }
 
     itemfilter(val: string) {
+        let SndObj = {
+            filter: val
+        }
         this.itemObservable =
-            this.__salesService.(val).pipe(
+            this.__salesService.getItemInfo(SndObj).pipe(
                 startWith(null),
                 debounceTime(200),
                 distinctUntilChanged())
     }
-    updateitemForm(row, value: any, Display: any) {
-        if (value) {
-            this.SalesItemsArray[row].ItemCode = value;
+    updateitemForm(item: any,product : any) {
+        console.log(item)
+        if (product.Value) {
+            item.ItemCode = product.Value;
+            item.ItemDescription = product.ItemDescription	;
+            item.PerPrice = product.PerPrice;
+            item.Qty = 1;
+            item.HSN = product.HSN;
+            item.Amount = product.PerPrice;
         } else {
             console.log('ooops');
         }
+        console.log(item)
 
     }
 
@@ -140,6 +175,11 @@ export class SalesaddeditComponent implements OnInit {
     public openPartyPopUp() {
         this.__commonService.addeditparty({}, true).subscribe(RtnData => {
             this.filteredPartyObservable.subscribe();
+        });
+    }
+    public openItemPopUp() {
+        this.__commonService.addedititem({}, true).subscribe(RtnData => {
+            this.itemfilter('')
         });
     }
 
@@ -156,6 +196,12 @@ export class SalesaddeditComponent implements OnInit {
         }
         else if (Type == "time") {
             return DateTimeModel ? moment(DateTimeModel).format('HH:mm:ss') : null;
+        }
+    }
+
+    public ChangeQtyPrice(item) {
+        if (item.Qty > 0) {
+            item.Amount = item.PerPrice * item.Qty
         }
     }
 }

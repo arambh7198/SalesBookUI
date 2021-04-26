@@ -1,10 +1,12 @@
-/// <reference path="product-master/product-master-add-edit/product-master-add-edit.component.ts" />
 import { Injectable } from '@angular/core';
 import { CustvendaddeditComponent } from './custvend/custvendaddedit/custvendaddedit.component'
 import { ProductMasterAddEditComponent } from './product-master/product-master-add-edit/product-master-add-edit.component'
+import { BankaddeditComponent} from './bank/bankaddedit/bankaddedit.component'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, interval, Subject, BehaviorSubject } from 'rxjs';
+
+
 
 @Injectable({
     providedIn: 'root'
@@ -61,32 +63,68 @@ export class CommonService {
 
     public addedititem(data: any = {}, isNew = true) {
         return new Observable((observer) => {
-        let passObject = {}
+            let passObject = {}
 
             passObject = {
                 Code: (data.Code || -1),
                 ProductName: (data.ProductName || null),
-                Description : (data.Description || null),
+                Description: (data.Description || null),
                 HSNCode: (data.HSNCode || null),
                 BasePrice: (data.BasePrice || null),
                 Locked: (data.Locked || false)
             }
 
-        let title = isNew ? 'Add Item' : 'Update Item';
-        let dialogRef: MatDialogRef<any> = this.dialog.open(ProductMasterAddEditComponent, {
-            width: '720px',
-            disableClose: false,
-            data: { title: title, payload: passObject, isNewDialog: isNew },
-        })
-        dialogRef.afterClosed()
-            .subscribe(dataSubmitted => {
-                //  this.loader.close();
-                if (dataSubmitted) {
-                    this.snack.open(isNew ? 'Item Added!' : 'Product Updated!', 'OK', { duration: 4000 })
-                }
-                observer.next(true);
-                observer.complete();
+            let title = isNew ? 'Add Item' : 'Update Item';
+            let dialogRef: MatDialogRef<any> = this.dialog.open(ProductMasterAddEditComponent, {
+                width: '720px',
+                disableClose: false,
+                data: { title: title, payload: passObject, isNewDialog: isNew },
             })
+            dialogRef.afterClosed()
+                .subscribe(dataSubmitted => {
+                    //  this.loader.close();
+                    if (dataSubmitted) {
+                        this.snack.open(isNew ? 'Item Added!' : 'Product Updated!', 'OK', { duration: 4000 })
+                    }
+                    observer.next(dataSubmitted);
+                    observer.complete();
+                })
+        })
+    }
+
+
+    public addeditbank(data: any = {}, isNew = true) {
+        return new Observable((observer) => {
+            let passObject = {}
+
+                passObject = {
+                    Code: (data.Code || -1),
+                    BankName: (data.BankName || null),
+                    BankAdd1: (data.BankAdd1 || null),
+                    BankAdd2: (data.BankAdd2 || null),
+                    City: (data.City || null),
+                    State: (data.State || null),
+                    Country: (data.Country || null),
+                    AccNo: (data.AccNo || null),
+                    IFSCCode: (data.IFSCCode || null),
+                    Locked: (data.Locked || false)
+                }
+
+            let title = isNew ? 'Add Item' : 'Update Item';
+            let dialogRef: MatDialogRef<any> = this.dialog.open(BankaddeditComponent, {
+                width: '720px',
+                disableClose: false,
+                data: { title: title, payload: passObject, isNewDialog: isNew },
+            })
+            dialogRef.afterClosed()
+                .subscribe(dataSubmitted => {
+                    //  this.loader.close();
+                    if (dataSubmitted) {
+                        this.snack.open(isNew ? 'Item Added!' : 'Product Updated!', 'OK', { duration: 4000 })
+                        observer.next(dataSubmitted);
+                        observer.complete();
+                    }
+                })
         })
     }
 }

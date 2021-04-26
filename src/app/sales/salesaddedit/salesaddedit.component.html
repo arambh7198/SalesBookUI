@@ -42,7 +42,7 @@
                         <mat-form-field class="full-width">
                             <mat-label>Party</mat-label>
                             <input matInput
-                                   aria-label="State"
+                                   aria-label="Party"
                                    [matAutocomplete]="auto"
                                    [formControl]="partyCtrl">
                             <mat-autocomplete #auto="matAutocomplete">
@@ -60,7 +60,38 @@
                         <button (click)="openPartyPopUp()" class="side-input-button" mat-raised-button color="accent">
                             <mat-icon style="padding-right:3px;margin-bottom:2px">
                                 add
-                            </mat-icon>New Party
+                            </mat-icon>Add Party
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div fxFlex="33">
+                <div fxLayout="row wrap" class="full-width" fxLayout.lt-sm="column">
+                    <div fxFlex="80">
+                        <mat-form-field class="full-width">
+                            <mat-label>Bank</mat-label>
+                            <input matInput
+                                   aria-label="Bank"
+                                   [matAutocomplete]="auto"
+                                   [formControl]="bankCtrl">
+                            <mat-autocomplete #auto="matAutocomplete"> 
+                                <mat-option *ngFor="let bank of filteredBankObservable | async" class="matoption-border"
+                                            (onSelectionChange)="updateForm(bank.Value,'BankCode')"
+                                            [value]="bank.Display">
+                                    <small>{{bank.Display}} ({{bank.IFSCCode}})</small>
+                                    <br />
+                                    <small class="option-description">{{ bank.AccNo }}</small>
+                                </mat-option>
+                            </mat-autocomplete>
+
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="10">
+                        <button (click)="openPartyPopUp()" class="side-input-button" mat-raised-button color="accent">
+                            <mat-icon style="padding-right:3px;margin-bottom:2px">
+                                add
+                            </mat-icon>Add Bank
                         </button>
                     </div>
 
@@ -95,19 +126,19 @@
         <tr>
             <th class="th-TrayQty">
                 <strong> Item</strong>
-                <button (click)="openPartyPopUp()" style="margin-left:4px" mat-raised-button color="accent">
+                <button (click)="openItemPopUp()" style="margin-left:4px" mat-raised-button color="accent">
                     <mat-icon style="padding-right:3px;margin-bottom:2px">
                         add
                     </mat-icon>New Inventory
                 </button>
             </th>
             <th class="th-TrayQty">HSN</th>
-            <th class="th-TrayQty">QTY</th>
-            <th class="th-TrayQty">PRICE/ITEM (₹)</th>
+            <th class="th-50">QTY</th>
+            <th class="th-50">PRICE/ITEM (₹)</th>
             <th class="th-Qty">DISCOUNT</th>
             <th class="th-Qty">TAX</th>
-            <th class="th-Qty">AMOUNT</th>
-            <th class="th-1">Actions</th>
+            <th class="th-50">AMOUNT</th>
+            <th class="th-150">Actions</th>
         </tr>
     </thead>
 
@@ -115,14 +146,16 @@
         <tr *ngFor="let item of SalesItemsArray">
             <td>
                 <mat-form-field class="full-width">
-                    <mat-label>Party</mat-label>
-                    <input matInput name="Flutter" #Flutter="ngModel" placeholder="Flutter Name" [matAutocomplete]="autoStyleCode"
-                           [(ngModel)]="row.currentItem" (input)="StyleNofilter(row?.currentFlutter)">
+                    <mat-label>Item</mat-label>
+                    <input matInput name="Item" #Flutter="ngModel" placeholder="Start Typing and Select Item" [matAutocomplete]="autoStyleCode"
+                           [(ngModel)]="item.currentItem" (input)="itemfilter(item?.currentItem)">
                     <mat-autocomplete #autoStyleCode="matAutocomplete">
-                        <mat-option *ngFor="let item of FlutterHelpObservable | async" 
-                                    (onSelectionChange)="updateitemForm(rowIndex,item.Value,item.Display)"
-                                    [value]="item.Display">
-                            <span>{{ item.Display }}</span>
+                        <mat-option *ngFor="let product of itemObservable | async" class="matoption-border"
+                                    (onSelectionChange)="updateitemForm(item,product)"
+                                    [value]="product.Display">
+                            <small>{{ product.Display }}({{product.HSN}})</small>
+                            <br />
+                            <small class="option-description">{{ product.ItemDescription }}</small>
                         </mat-option>
                     </mat-autocomplete>
 
@@ -132,16 +165,16 @@
                 {{item.HSN}}
             </td>
             <td>
-                <mat-form-field appearance="legacy" class="full-width">
+                <mat-form-field  class="full-width">
                     <mat-label>Enter Qty</mat-label>
-                    <input ([ngModel])="item.Qty" matInput placeholder="Placeholder">
+                    <input type="text" name="Qty" (input)="ChangeQtyPrice(item)"  [(ngModel)]="item.Qty" matInput placeholder="Placeholder">
                     
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field appearance="legacy" class="full-width">
                     <mat-label>Enter Price</mat-label>
-                    <input ([ngModel])="item.PerPrice" matInput placeholder="Placeholder">
+                    <input type="text" name="PerPrice" (input)="ChangeQtyPrice(item)" [(ngModel)]="item.PerPrice" matInput placeholder="Placeholder">
                 </mat-form-field>
             </td>
             <td>
@@ -151,11 +184,16 @@
                 {{item.IGST}}
             </td>
             <td>
-                {{item.Amount}}
+                {{item.Amount  | currency:'INR'}}
             </td>
           
             <td>
-                <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+                <button (click)="saveInvoice()" mat-raised-button color="primary">
+                    <mat-icon style="padding-right:3px;margin-bottom:2px">
+                        save
+                    </mat-icon>Save
+                </button>
+                <button mat-icon-button color="primary" (click)="createNewItemUI()" aria-label="Example icon button with a home icon">
                     <mat-icon>add</mat-icon>
                 </button>
                 <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
