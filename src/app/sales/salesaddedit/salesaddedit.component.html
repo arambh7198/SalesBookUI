@@ -21,7 +21,7 @@
             <div fxFlex="33">
                 <mat-form-field appearance="legacy" class="full-width">
                     <mat-label>Invoice No</mat-label>
-                    <input matInput placeholder="Placeholder">
+                    <input #InvoiceNo required [formControl]="itemForm.controls['InvoiceNo']" maxlength="200"  matInput placeholder="Placeholder">
                     <mat-icon matSuffix>receipt</mat-icon>
                 </mat-form-field>
             </div>
@@ -100,7 +100,7 @@
             <div fxFlex="33">
                 <mat-form-field appearance="legacy" class="full-width">
                     <mat-label>Payment Terms</mat-label>
-                    <input matInput placeholder="Placeholder">
+                    <input  matInput placeholder="Placeholder">
                     <mat-icon matSuffix>price_change</mat-icon>
                 </mat-form-field>
             </div>
@@ -143,7 +143,7 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let item of SalesItemsArray">
+        <tr *ngFor="let item of SalesItemsArray;let itemindex = index">
             <td>
                 <mat-form-field class="full-width">
                     <mat-label>Item</mat-label>
@@ -188,10 +188,10 @@
             </td>
           
             <td>
-                <button (click)="saveInvoice()" mat-raised-button color="primary">
+                <button (click)="saveInvoice(true,itemindex + 1,item)" mat-icon-button color="primary">
                     <mat-icon style="padding-right:3px;margin-bottom:2px">
                         save
-                    </mat-icon>Save
+                    </mat-icon>
                 </button>
                 <button mat-icon-button color="primary" (click)="createNewItemUI()" aria-label="Example icon button with a home icon">
                     <mat-icon>add</mat-icon>

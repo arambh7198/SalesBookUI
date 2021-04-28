@@ -45,7 +45,7 @@ export class SalesaddeditComponent implements OnInit {
             switchMap(val => {
                 return this._filterParty(val || '')
             })
-        );
+            );
 
         this.filteredBankObservable = this.bankCtrl.valueChanges
             .pipe(
@@ -60,9 +60,23 @@ export class SalesaddeditComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        let headerString = -1
         this.buildItemForm({})
         this.createNewItemUI();
         this.itemfilter('')
+
+        this.__salesService.getSalesForEdit({ Code: headerString }).subscribe(RtnData => {
+            let Obj: any;
+            if (headerString == -1) {
+              //  alert(RtnData.Data[0].DocNo)
+                this.itemForm['controls']["InvoiceNo"].setValue(RtnData.Data[0].DocNo);
+            }
+           
+
+        })
+
+
+      
     }
 
 
@@ -70,14 +84,15 @@ export class SalesaddeditComponent implements OnInit {
         this.SalesItemObj = {
             Code: -1,
             SalesCode: null,
-            ItemCode: null,
-            Amount: null,
-            PerPrice: null,
-            CGST: null,
-            SGST: null,
-            IGST: null,
-            Discount: null,
-            Qty: null,
+            ItemCode: -1,
+            ItemDescription: null,
+            Amount: 0,
+            PerPrice: 0,
+            CGST: 0,
+            SGST: 0,
+            IGST: 0,
+            Discount: 0,
+            Qty: 0,
             Locked: false
         }
         this.SalesItemsArray.push(JSON.parse(JSON.stringify(this.SalesItemObj)))
@@ -93,7 +108,8 @@ export class SalesaddeditComponent implements OnInit {
             DueDate: new FormControl(item.DueDate || null),
             BankCode: new FormControl(item.BankCode || null),
             CustomerCode: new FormControl(item.CustomerCode || null),
-            CompanyCode: new FormControl(item.CompanyCode || null)
+            CompanyCode: new FormControl(item.CompanyCode || null),
+            IsCommited: new FormControl(item.IsCommited || 0)
 
         })
     }
@@ -117,15 +133,26 @@ export class SalesaddeditComponent implements OnInit {
     }
 
 
-    public saveInvoice() {
-
+    public saveInvoice(isItem: boolean = false, itemindex: number = 0, item: any = {}) {
+        alert(itemindex)
+        item.SrNo = itemindex;
         const SendObj = { ...this.itemForm.getRawValue() };
         this.UpdateSavingDateTimeFormat(SendObj);
-        SendObj.SalesItems = this.SalesItemsArray;
+        SendObj.SalesItemsInfo = this.SalesItemsArray;
         this.__salesService.saveSales(SendObj)
             .subscribe(data => {
                 console.log(data)
                 alert()
+                if (!isItem) {
+                    this.itemForm['controls']["Code"].setValue(data.Sales[0].Code);
+                } else {
+                    for (let k = 0; k < data.Sales[0].SalesDetails.length; k++) {
+                        if (data.Sales[0].SalesDetails[k].SrNo == itemindex) {
+                            item.Code = data.Sales[0].SalesDetails[k].Code
+                        }
+                    }
+                }
+
             }, err => {
 
                 this.errorMessage = err.error ? err.error.ExceptionMessage : "Something Went Wrong"
@@ -154,11 +181,11 @@ export class SalesaddeditComponent implements OnInit {
                 debounceTime(200),
                 distinctUntilChanged())
     }
-    updateitemForm(item: any,product : any) {
+    updateitemForm(item: any, product: any) {
         console.log(item)
         if (product.Value) {
             item.ItemCode = product.Value;
-            item.ItemDescription = product.ItemDescription	;
+            item.ItemDescription = product.ItemDescription;
             item.PerPrice = product.PerPrice;
             item.Qty = 1;
             item.HSN = product.HSN;

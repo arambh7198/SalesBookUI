@@ -1,0 +1,141 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput CompanyName="CompanyName" #CompanyName required [formControl]="itemForm.controls['CompanyName']" maxlength="200" placeholder="CompanyName" autocomplete="off">
+                <!--<mat-hint align="end">{{CompanyName.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['CompanyName'].hasError('required') && itemForm.controls['CompanyName'].touched"
+                   class="form-error-msg">CompanyName is required</small>
+            <small *ngIf="itemForm.controls['CompanyName'].hasError('minlength') && itemForm.controls['CompanyName'].touched"
+                   class="form-error-msg">CompanyName require at least{{itemForm.controls['CompanyName'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['CompanyName'].hasError('maxlength') && itemForm.controls['CompanyName'].touched"
+                   class="form-error-msg">CompanyName can not contain more than{{itemForm.controls['CompanyName'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput CompShortName="CompShortName" #CompShortName required [formControl]="itemForm.controls['CompShortName']" maxlength="200" placeholder="CompShortName" autocomplete="off">
+                <!--<mat-hint align="end">{{CompShortName.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['CompShortName'].hasError('required') && itemForm.controls['CompShortName'].touched"
+                   class="form-error-msg">CompShortName is required</small>
+            <small *ngIf="itemForm.controls['CompShortName'].hasError('minlength') && itemForm.controls['CompShortName'].touched"
+                   class="form-error-msg">CompShortName require at least{{itemForm.controls['CompShortName'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['CompShortName'].hasError('maxlength') && itemForm.controls['CompShortName'].touched"
+                   class="form-error-msg">CompShortName can not contain more than{{itemForm.controls['CompShortName'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput EmailID="EmailID" #EmailID required [formControl]="itemForm.controls['EmailID']" maxlength="30" placeholder="EmailID" autocomplete="off">
+                <!--<mat-hint align="end">{{EmailID.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['EmailID'].hasError('required') && itemForm.controls['EmailID'].touched"
+                   class="form-error-msg">EmailID is required</small>
+            <small *ngIf="itemForm.controls['EmailID'].hasError('minlength') && itemForm.controls['EmailID'].touched"
+                   class="form-error-msg">EmailID require at least{{itemForm.controls['EmailID'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['EmailID'].hasError('maxlength') && itemForm.controls['EmailID'].touched"
+                   class="form-error-msg">EmailID can not contain more than{{itemForm.controls['EmailID'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput MobileNo="MobileNo" #MobileNo required [formControl]="itemForm.controls['MobileNo']" maxlength="30" placeholder="MobileNo" autocomplete="off">
+                <!--<mat-hint align="end">{{MobileNo.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['MobileNo'].hasError('required') && itemForm.controls['MobileNo'].touched"
+                   class="form-error-msg">MobileNo is required</small>
+            <small *ngIf="itemForm.controls['MobileNo'].hasError('minlength') && itemForm.controls['MobileNo'].touched"
+                   class="form-error-msg">MobileNo require at least{{itemForm.controls['MobileNo'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['MobileNo'].hasError('maxlength') && itemForm.controls['MobileNo'].touched"
+                   class="form-error-msg">MobileNo can not contain more than{{itemForm.controls['MobileNo'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput CompAdd1="CompAdd1" #CompAdd1 required [formControl]="itemForm.controls['CompAdd1']" maxlength="255" placeholder="CompAdd1" autocomplete="off">
+                <!--<mat-hint align="end">{{CompAdd1.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['CompAdd1'].hasError('required') && itemForm.controls['CompAdd1'].touched"
+                   class="form-error-msg">BankAdd1 is required</small>
+            <small *ngIf="itemForm.controls['CompAdd1'].hasError('minlength') && itemForm.controls['CompAdd1'].touched"
+                   class="form-error-msg">CompAdd1 require at least{{itemForm.controls['CompAdd1'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['CompAdd1'].hasError('maxlength') && itemForm.controls['CompAdd1'].touched"
+                   class="form-error-msg">CompAdd1 can not contain more than{{itemForm.controls['CompAdd1'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput BankAdd2="CompAdd2" #CompAdd2 required [formControl]="itemForm.controls['CompAdd2']" maxlength="255" placeholder="CompAdd2" autocomplete="off">
+                <!--<mat-hint align="end">{{CompAdd2.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['CompAdd2'].hasError('required') && itemForm.controls['CompAdd2'].touched"
+                   class="form-error-msg">CompAdd2 is required</small>
+            <small *ngIf="itemForm.controls['CompAdd2'].hasError('minlength') && itemForm.controls['CompAdd2'].touched"
+                   class="form-error-msg">CompAdd2 require at least{{itemForm.controls['CompAdd2'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['CompAdd2'].hasError('maxlength') && itemForm.controls['CompAdd2'].touched"
+                   class="form-error-msg">CompAdd2 can not contain more than{{itemForm.controls['CompAdd2'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput PIN="PIN" #PIN required [formControl]="itemForm.controls['PIN']" maxlength="30" placeholder="PIN" autocomplete="off">
+                <!--<mat-hint align="end">{{PIN.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['PIN'].hasError('required') && itemForm.controls['PIN'].touched"
+                   class="form-error-msg">PIN is required</small>
+            <small *ngIf="itemForm.controls['PIN'].hasError('minlength') && itemForm.controls['PIN'].touched"
+                   class="form-error-msg">PIN require at least{{itemForm.controls['PIN'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['PIN'].hasError('maxlength') && itemForm.controls['PIN'].touched"
+                   class="form-error-msg">PIN can not contain more than{{itemForm.controls['PIN'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50">
+            <mat-form-field class="example-full-width">
+                <mat-label>City</mat-label>
+                <input matInput
+                       aria-label="City"
+                       [matAutocomplete]="auto"
+                       [formControl]="cityCtrl">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let item of filteredCityObservable | async"
+                                (onSelectionChange)="updateForm(item,'City')"
+                                [value]="item.Display">
+                        <span>{{item.Display}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput PAN="PAN" #PAN required [formControl]="itemForm.controls['PAN']" maxlength="30" placeholder="PAN" autocomplete="off">
+                <!--<mat-hint align="end">{{PAN.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['PAN'].hasError('required') && itemForm.controls['PAN'].touched"
+                   class="form-error-msg">PAN is required</small>
+            <small *ngIf="itemForm.controls['PAN'].hasError('minlength') && itemForm.controls['PAN'].touched"
+                   class="form-error-msg">PAN require at least{{itemForm.controls['PAN'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['PAN'].hasError('maxlength') && itemForm.controls['PAN'].touched"
+                   class="form-error-msg">PAN can not contain more than{{itemForm.controls['PAN'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+                <input matInput GST="GST" #GST required [formControl]="itemForm.controls['GST']" maxlength="30" placeholder="GST" autocomplete="off">
+                <!--<mat-hint align="end">{{GST.value.length}} / 100</mat-hint>-->
+            </mat-form-field>
+            <small *ngIf="itemForm.controls['GST'].hasError('required') && itemForm.controls['GST'].touched"
+                   class="form-error-msg">GST is required</small>
+            <small *ngIf="itemForm.controls['GST'].hasError('minlength') && itemForm.controls['GST'].touched"
+                   class="form-error-msg">GST require at least{{itemForm.controls['GST'].errors.minlength.requiredLength}}characters</small>
+            <small *ngIf="itemForm.controls['GST'].hasError('maxlength') && itemForm.controls['GST'].touched"
+                   class="form-error-msg">GST can not contain more than{{itemForm.controls['GST'].errors.maxlength.requiredLength}}characters</small>
+        </div>
+        <div fxFlex="50" class="pt-1 pr-1" *ngIf="!data.isNewDialog">
+            <mat-slide-toggle [formControl]="itemForm.controls['Locked']">Locked</mat-slide-toggle>
+        </div>
+
+        <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="primary" [disabled]="itemForm.invalid">{{"SAVE"}}</button>
+            <span fxFlex></span>
+            <button mat-raised-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+        </div>
+    </div>
+</form>

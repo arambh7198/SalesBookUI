@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { ProductMasterComponent } from './product-master/product-master.component';
 import { CustvendComponent} from './custvend/custvend.component'
 import { BankComponent } from './bank/bank.component';
+import { CompanyComponent } from './company/company.component';
+
 
 const routes: Routes = [
     { path: 'sales', component: SalesComponent },
@@ -14,6 +16,7 @@ const routes: Routes = [
     { path: 'product', component: ProductMasterComponent },
     { path: 'custvend', component: CustvendComponent },
     { path: 'bank', component: BankComponent },
+    { path: 'comapny', component: CompanyComponent },
 ];
 
 @NgModule({

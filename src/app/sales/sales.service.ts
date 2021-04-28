@@ -42,5 +42,11 @@ export class SalesService {
         }
     }
 
+    public getSalesForEdit(query: any): Observable<any> {
+        if (query) {
+            return this.__http.post(this.__appSettings.API_Config + this.controllerName + '/getSalesForEdit', query);
+        }
+    }
+
 
 }

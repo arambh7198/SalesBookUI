@@ -25,6 +25,8 @@
     <Content Include="src\app\app.component.html" />
     <Content Include="src\app\bank\bank.component.html" />
     <Content Include="src\app\bank\bankaddedit\bankaddedit.component.html" />
+    <Content Include="src\app\company\company.component.html" />
+    <Content Include="src\app\company\companyaddedit\companyaddedit.component.html" />
     <Content Include="src\app\custvend\custvend.component.html" />
     <Content Include="src\app\custvend\custvendaddedit\custvendaddedit.component.html" />
     <Content Include="src\app\login\login.component.html" />
@@ -50,6 +52,12 @@
     <TypeScriptCompile Include="src\app\bank\bankaddedit\bankaddedit.component.ts" />
     <TypeScriptCompile Include="src\app\common.service.spec.ts" />
     <TypeScriptCompile Include="src\app\common.service.ts" />
+    <TypeScriptCompile Include="src\app\company\company.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\company\company.component.ts" />
+    <TypeScriptCompile Include="src\app\company\company.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\company\company.service.ts" />
+    <TypeScriptCompile Include="src\app\company\companyaddedit\companyaddedit.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\company\companyaddedit\companyaddedit.component.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvend.component.spec.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvend.component.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvend.service.spec.ts" />
@@ -95,6 +103,8 @@
     <Content Include="src\app\custvend\custvendaddedit\custvendaddedit.component.scss" />
     <Content Include="src\app\bank\bank.component.scss" />
     <Content Include="src\app\bank\bankaddedit\bankaddedit.component.scss" />
+    <Content Include="src\app\company\company.component.scss" />
+    <Content Include="src\app\company\companyaddedit\companyaddedit.component.scss" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

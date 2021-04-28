@@ -33,6 +33,8 @@ import { CustvendComponent } from './custvend/custvend.component';
 import { CustvendaddeditComponent } from './custvend/custvendaddedit/custvendaddedit.component';
 import { BankComponent } from './bank/bank.component';
 import { BankaddeditComponent } from './bank/bankaddedit/bankaddedit.component';
+import { CompanyComponent } from './company/company.component';
+import { CompanyaddeditComponent } from './company/companyaddedit/companyaddedit.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +47,9 @@ import { BankaddeditComponent } from './bank/bankaddedit/bankaddedit.component';
         CustvendComponent,
         CustvendaddeditComponent,
         BankComponent,
-        BankaddeditComponent
+        BankaddeditComponent,
+        CompanyComponent,
+        CompanyaddeditComponent
     ],
     imports: [
         BrowserModule,
