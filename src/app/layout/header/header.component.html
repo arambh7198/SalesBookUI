@@ -1,0 +1,12 @@
+<header>
+    <mat-toolbar style="height:40px;">
+        <button mat-icon-button class="example-icon" (click)="onToggleSidenav()" aria-label="Example icon-button with menu icon" >
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span [innerHTML]="DynamicHeaderTitle"></span>
+        <span class="example-spacer">Sales Book</span>
+        <button (click)="logout()" mat-button class="example-icon" aria-label="Example icon-button with share icon" >
+            <span>Logout</span>
+        </button>
+    </mat-toolbar>
+</header>

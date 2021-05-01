@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router'; // import router from angular router
+import {Router, ActivatedRoute} from '@angular/router'; // import router from angular router
 import {Observable} from 'rxjs';
 import { map, startWith, debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import { SalesService } from '../sales.service'
@@ -35,7 +35,8 @@ export class SalesaddeditComponent implements OnInit {
     constructor(private __route: Router,
         private __salesService: SalesService,
         private __fb: FormBuilder,
-        private __commonService: CommonService
+        private __commonService: CommonService,
+        private __activatedRoute: ActivatedRoute,
     ) {
         this.filteredPartyObservable = this.partyCtrl.valueChanges
             .pipe(
@@ -60,23 +61,25 @@ export class SalesaddeditComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        let headerString = -1
-        this.buildItemForm({})
-        this.createNewItemUI();
-        this.itemfilter('')
 
-        this.__salesService.getSalesForEdit({ Code: headerString }).subscribe(RtnData => {
-            let Obj: any;
-            if (headerString == -1) {
-              //  alert(RtnData.Data[0].DocNo)
-                this.itemForm['controls']["InvoiceNo"].setValue(RtnData.Data[0].DocNo);
-            }
-           
+        this.__activatedRoute.params.subscribe(params => {
+            let headerString = atob(params['id']);
+            this.buildItemForm({})
+            this.createNewItemUI();
+            this.itemfilter('')
 
-        })
+            this.__salesService.getSalesForEdit({ Code: headerString }).subscribe(RtnData => {
+                let Obj: any;
+                if (headerString == "-1") {
+                    this.itemForm['controls']["InvoiceNo"].setValue(RtnData.Data[0].DocNo);
+                }
 
 
-      
+            })
+        });
+
+
+
     }
 
 
@@ -92,6 +95,7 @@ export class SalesaddeditComponent implements OnInit {
             SGST: 0,
             IGST: 0,
             Discount: 0,
+            TaxPerc: 0,
             Qty: 0,
             Locked: false
         }
@@ -109,6 +113,17 @@ export class SalesaddeditComponent implements OnInit {
             BankCode: new FormControl(item.BankCode || null),
             CustomerCode: new FormControl(item.CustomerCode || null),
             CompanyCode: new FormControl(item.CompanyCode || null),
+
+            Amount: new FormControl(item.Amount || null),
+            CGST: new FormControl(item.CGST || null),
+            SGST: new FormControl(item.SGST || null),
+            IGST: new FormControl(item.IGST || null),
+            Transportation: new FormControl(item.Transportation || null),
+            Discount: new FormControl(item.Discount || null),
+            TotalAmount: new FormControl(item.TotalAmount || null),
+
+
+
             IsCommited: new FormControl(item.IsCommited || 0)
 
         })
@@ -149,9 +164,16 @@ export class SalesaddeditComponent implements OnInit {
                     for (let k = 0; k < data.Sales[0].SalesDetails.length; k++) {
                         if (data.Sales[0].SalesDetails[k].SrNo == itemindex) {
                             item.Code = data.Sales[0].SalesDetails[k].Code
+                            item.IGST = data.Sales[0].SalesDetails[k].IGST
+                            item.TotalAmount = data.Sales[0].SalesDetails[k].TotalAmount
                         }
                     }
                 }
+                this.itemForm['controls']["Amount"].setValue(data.Sales[0].Amount);
+                this.itemForm['controls']["CGST"].setValue(data.Sales[0].CGST);
+                this.itemForm['controls']["SGST"].setValue(data.Sales[0].SGST);
+                this.itemForm['controls']["Discount"].setValue(data.Sales[0].Discount);
+                this.itemForm['controls']["TotalAmount"].setValue(data.Sales[0].TotalAmount);
 
             }, err => {
 
@@ -204,6 +226,11 @@ export class SalesaddeditComponent implements OnInit {
             this.filteredPartyObservable.subscribe();
         });
     }
+    public openBankPopUp() {
+        this.__commonService.addeditbank({}, true).subscribe(RtnData => {
+            this.filteredPartyObservable.subscribe();
+        });
+    }
     public openItemPopUp() {
         this.__commonService.addedititem({}, true).subscribe(RtnData => {
             this.itemfilter('')
@@ -229,6 +256,32 @@ export class SalesaddeditComponent implements OnInit {
     public ChangeQtyPrice(item) {
         if (item.Qty > 0) {
             item.Amount = item.PerPrice * item.Qty
+        }
+    }
+
+
+
+    deleteItem(row) {
+        if (confirm(`Delete Item`)) {
+
+            // this.loader.open();
+            this.__salesService.deleteItem(row)
+                .subscribe(dataSubmitted => {
+                    //  this.loader.close();
+                    //if (dataSubmitted) {
+                       
+                    //}
+                    this.SalesItemsArray.splice(this.SalesItemsArray.findIndex(a => a.Code === row.Code), 1)
+                    
+
+                }, err => {
+                    //  this.loader.close();
+                    this.errorMessage = err.error ? err.error.ExceptionMessage : "Something Went Wrong"
+                    //this.snack.open(err.error ? err.error.ExceptionMessage : "Something Went Wrong", 'Clear', {
+                    //    duration: 4000,
+                    //});
+                })
+
         }
     }
 }

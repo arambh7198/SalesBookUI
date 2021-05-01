@@ -1,7 +1,7 @@
 ﻿<mat-card>
     <div fxLayout="row">
         <div fxFlex="20" class="m-333">
-          <strong>Create Sales invoice</strong>
+            <strong>Create Sales invoice</strong>
         </div>
         <div fxFlex="80" fxLayoutAlign="end center">
             <button (click)="saveInvoice()" mat-raised-button color="primary">
@@ -9,19 +9,42 @@
                     save
                 </mat-icon>Save Invoice
             </button>
-           
-           
         </div>
     </div>
 </mat-card>
 <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
+<mat-card style="border:solid">
+    <div fxLayout="row">
+        <div fxFlex="90" class="m-333" style="margin-top: 10px;">
+         Company - <strong style="color:blueviolet">INTEGRATED ALUPLAST & HARDWARE</strong>
+            <p>
+                EmailID : - vijaypatil208@gmail.com   Mobile No. :-  9833829069
+            </p>
+        </div>
+        <div fxFlex="10"  class="m-333">
+            <button (click)="openBankPopUp()" class="side-input-button" mat-raised-button color="accent">
+                <mat-icon style="padding-right:3px;margin-bottom:2px">
+                    edit
+                </mat-icon>Update Company
+            </button>
+        </div>
+
+        <!--<div fxFlex="80" fxLayoutAlign="end center">
+            <button (click)="saveInvoice()" mat-raised-button color="primary">
+                <mat-icon style="padding-right:3px;margin-bottom:2px">
+                    save
+                </mat-icon>Save Invoice
+            </button>
+        </div>-->
+    </div>
+</mat-card>
 <mat-card>
     <form [formGroup]="itemForm" class="example-form">
         <div fxLayout="row wrap" class="example-container" fxLayout.lt-sm="column">
             <div fxFlex="33">
                 <mat-form-field appearance="legacy" class="full-width">
                     <mat-label>Invoice No</mat-label>
-                    <input #InvoiceNo required [formControl]="itemForm.controls['InvoiceNo']" maxlength="200"  matInput placeholder="Placeholder">
+                    <input #InvoiceNo required [formControl]="itemForm.controls['InvoiceNo']" maxlength="200" matInput placeholder="Placeholder">
                     <mat-icon matSuffix>receipt</mat-icon>
                 </mat-form-field>
             </div>
@@ -49,7 +72,7 @@
                                 <mat-option *ngFor="let party of filteredPartyObservable | async"
                                             (onSelectionChange)="updateForm(party.Value,'CustomerCode')"
                                             [value]="party.Display">
-                                    <small>{{party.Display}}</small> 
+                                    <small>{{party.Display}}</small>
                                     <!--<small><mat-icon>mobile</mat-icon> : {{party.MobileNo}}</small>-->
                                 </mat-option>
                             </mat-autocomplete>
@@ -73,9 +96,9 @@
                             <mat-label>Bank</mat-label>
                             <input matInput
                                    aria-label="Bank"
-                                   [matAutocomplete]="auto"
+                                   [matAutocomplete]="bank"
                                    [formControl]="bankCtrl">
-                            <mat-autocomplete #auto="matAutocomplete"> 
+                            <mat-autocomplete #bank="matAutocomplete">
                                 <mat-option *ngFor="let bank of filteredBankObservable | async" class="matoption-border"
                                             (onSelectionChange)="updateForm(bank.Value,'BankCode')"
                                             [value]="bank.Display">
@@ -88,22 +111,22 @@
                         </mat-form-field>
                     </div>
                     <div fxFlex="10">
-                        <button (click)="openPartyPopUp()" class="side-input-button" mat-raised-button color="accent">
+                        <button (click)="openBankPopUp()" class="side-input-button" mat-raised-button color="accent">
                             <mat-icon style="padding-right:3px;margin-bottom:2px">
                                 add
-                            </mat-icon>Add Bank  
+                            </mat-icon>Add Bank
                         </button>
                     </div>
 
                 </div>
             </div>
-            <div fxFlex="33">
+            <!--<div fxFlex="33">
                 <mat-form-field appearance="legacy" class="full-width">
                     <mat-label>Payment Terms</mat-label>
-                    <input  matInput placeholder="Placeholder">
+                    <input matInput placeholder="Placeholder">
                     <mat-icon matSuffix>price_change</mat-icon>
                 </mat-form-field>
-            </div>
+            </div>-->
             <div fxFlex="33">
                 <mat-form-field class="full-width">
                     <input matInput name="DueDate" required hour12Timer="false" [owlDateTime]="DueDate"
@@ -119,94 +142,183 @@
     </form>
 </mat-card>
 <mat-card>
-   Item Details
+    <strong>Item Details</strong><br />
+    <small>(Fill Above Details and then add Inventory Info)</small>
 </mat-card>
-<table border="1" class="table_data_section try-data-table">
-    <thead>
-        <tr>
-            <th class="th-TrayQty">
-                <strong> Item</strong>
-                <button (click)="openItemPopUp()" style="margin-left:4px" mat-raised-button color="accent">
-                    <mat-icon style="padding-right:3px;margin-bottom:2px">
-                        add
-                    </mat-icon>New Inventory
-                </button>
-            </th>
-            <th class="th-TrayQty">HSN</th>
-            <th class="th-50">QTY</th>
-            <th class="th-50">PRICE/ITEM (₹)</th>
-            <th class="th-Qty">DISCOUNT</th>
-            <th class="th-Qty">TAX</th>
-            <th class="th-50">AMOUNT</th>
-            <th class="th-150">Actions</th>
-        </tr>
-    </thead>
+<fieldset [disabled]="itemForm.controls['Code'].value == '-1' ? true : null">
+    <table border="1" class="table_data_section try-data-table">
+        <thead>
+            <tr>
+                <th class="th-TrayQty">
+                    <strong> Item</strong>
+                    <button (click)="openItemPopUp()" style="margin-left:4px" mat-raised-button color="accent">
+                        <mat-icon style="padding-right:3px;margin-bottom:2px">
+                            add
+                        </mat-icon>New Inventory
+                    </button>
+                </th>
+                <th class="th-TrayQty">HSN</th>
+                <th class="th-50">QTY</th>
+                <th class="th-50">PRICE/ITEM (₹)</th>
+                <th class="th-Qty">DISCOUNT</th>
+                <th class="th-Qty">TAX PERC</th>
+                <th class="th-Qty">TAX AMOUNT</th>
+                <th class="th-50">AMOUNT</th>
+                <th class="th-150">Actions</th>
+            </tr>
+        </thead>
 
-    <tbody>
-        <tr *ngFor="let item of SalesItemsArray;let itemindex = index">
-            <td>
-                <mat-form-field class="full-width">
-                    <mat-label>Item</mat-label>
-                    <input matInput name="Item" #Flutter="ngModel" placeholder="Start Typing and Select Item" [matAutocomplete]="autoStyleCode"
-                           [(ngModel)]="item.currentItem" (input)="itemfilter(item?.currentItem)">
-                    <mat-autocomplete #autoStyleCode="matAutocomplete">
-                        <mat-option *ngFor="let product of itemObservable | async" class="matoption-border"
-                                    (onSelectionChange)="updateitemForm(item,product)"
-                                    [value]="product.Display">
-                            <small>{{ product.Display }}({{product.HSN}})</small>
-                            <br />
-                            <small class="option-description">{{ product.ItemDescription }}</small>
-                        </mat-option>
-                    </mat-autocomplete>
+        <tbody>
+            <tr *ngFor="let item of SalesItemsArray;let itemindex = index">
+                <td>
+                    <mat-form-field class="full-width">
+                        <mat-label>Item</mat-label>
+                        <input matInput name="Item" #Flutter="ngModel" placeholder="Start Typing and Select Item" [matAutocomplete]="autoStyleCode"
+                               [(ngModel)]="item.currentItem" (input)="itemfilter(item?.currentItem)">
+                        <mat-autocomplete #autoStyleCode="matAutocomplete">
+                            <mat-option *ngFor="let product of itemObservable | async" class="matoption-border"
+                                        (onSelectionChange)="updateitemForm(item,product)"
+                                        [value]="product.Display">
+                                <small>{{ product.Display }}({{product.HSN}})</small>
+                                <br />
+                                <small class="option-description">{{ product.ItemDescription }}</small>
+                            </mat-option>
+                        </mat-autocomplete>
 
-                </mat-form-field>
-            </td>
-            <td>
-                {{item.HSN}}
-            </td>
-            <td>
-                <mat-form-field  class="full-width">
-                    <mat-label>Enter Qty</mat-label>
-                    <input type="text" name="Qty" (input)="ChangeQtyPrice(item)"  [(ngModel)]="item.Qty" matInput placeholder="Placeholder">
-                    
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="legacy" class="full-width">
-                    <mat-label>Enter Price</mat-label>
-                    <input type="text" name="PerPrice" (input)="ChangeQtyPrice(item)" [(ngModel)]="item.PerPrice" matInput placeholder="Placeholder">
-                </mat-form-field>
-            </td>
-            <td>
-                {{item.Discount}}
-            </td>
-            <td>
-                {{item.IGST}}
-            </td>
-            <td>
-                {{item.Amount  | currency:'INR'}}
-            </td>
-          
-            <td>
-                <button (click)="saveInvoice(true,itemindex + 1,item)" mat-icon-button color="primary">
-                    <mat-icon style="padding-right:3px;margin-bottom:2px">
-                        save
-                    </mat-icon>
-                </button>
-                <button mat-icon-button color="primary" (click)="createNewItemUI()" aria-label="Example icon button with a home icon">
-                    <mat-icon>add</mat-icon>
-                </button>
-                <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </td>
-        </tr>
+                    </mat-form-field>
+                </td>
+                <td>
+                    {{item.HSN}}
+                </td>
+                <td>
+                    <mat-form-field class="full-width">
+                        <mat-label>Enter Qty</mat-label>
+                        <input type="text" name="Qty" (input)="ChangeQtyPrice(item)" [(ngModel)]="item.Qty" matInput placeholder="Placeholder">
 
-    </tbody>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="legacy" class="full-width">
+                        <mat-label>Enter Price</mat-label>
+                        <input type="text" name="PerPrice"
+                               [(ngModel)]="item.PerPrice" matInput placeholder="Placeholder">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="legacy" class="full-width">
+                        <mat-label>Enter Discount</mat-label>
+                        <input type="text" name="PerPrice"
+                               [(ngModel)]="item.Discount" matInput placeholder="Placeholder">
+                    </mat-form-field>
 
-</table>
+                </td>
+                <td>
+                    <mat-form-field appearance="legacy" class="full-width">
+                        <mat-label>Enter Tax Percentage</mat-label>
+                        <input type="text" name="TaxPerc"
+                               [(ngModel)]="item.TaxPerc" matInput placeholder="Placeholder">
+                    </mat-form-field>
+                </td>
+                <td>
+                    {{item.IGST  | currency:'INR'}}
+                </td>
+                <td>
+                    {{item.TotalAmount  | currency:'INR'}}
+                </td>
+
+                <td>
+                    <button (click)="saveInvoice(true,itemindex + 1,item)" mat-icon-button color="primary">
+                        <mat-icon style="padding-right:3px;margin-bottom:2px">
+                            save
+                        </mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="createNewItemUI()" aria-label="Example icon button with a home icon">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-icon-button color="accent" (click)="deleteItem(item)" aria-label="Example icon button with a menu icon">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+    <div fxLayout="row">
+        <div fxFlex="50">
+        </div>
+        <div fxFlex="50">
+            <table border="1" class="table_data_section try-data-table">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="th-TrayQty">
+                            Invoice Total
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="th-TrayQty">
+                            SubTotal
+                        </td>
+                        <td style="text-align:right;padding:7px">
+                            {{ itemForm.controls['Amount'].value | currency:'INR'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="th-TrayQty">
+                            Transportation
+                        </td>
+                        <td style="text-align:right;border:solid">
+                            <input #Transportation [formControl]="itemForm.controls['Transportation']"
+                                   maxlength="200" matInput placeholder="Enter Transporatation Amount ">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="th-TrayQty">
+                            Discount
+                        </td>
+                        <td style="text-align:right;padding:7px">
+                            {{itemForm.controls['Discount'].value  | currency:'INR'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="th-TrayQty">
+                            CGST
+                        </td>
+                        <td style="text-align:right;padding:7px">
+                            {{ itemForm.controls['CGST'].value | currency:'INR'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="th-TrayQty">
+                            SGST
+                        </td>
+                        <td style="text-align:right;padding:7px">
+                            {{itemForm.controls['SGST'].value | currency:'INR'}}
+                        </td>
+                    </tr>
+
+                </tbody>
+                <thead>
+                    <tr>
+                        <th class="th-TrayQty">
+                            Total Amount
+                        </th>
+                        <th style="text-align:right;padding:7px">
+                            {{itemForm.controls['TotalAmount'].value  | currency:'INR'}}
+                        </th>
+                    </tr>
+                </thead>
 
 
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+</fieldset>
 
 
 

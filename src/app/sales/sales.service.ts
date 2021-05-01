@@ -17,6 +17,12 @@ export class SalesService {
         private __appSettings: appSettings) { }
 
 
+    public getData(query: any): Observable<any> {
+        if (query) {
+            return this.__http.post(this.__appSettings.API_Config + this.controllerName + '/getData', query);
+        }
+    }
+
     public getPartyInfo(query: any): Observable<any> {
         if (query) {
             return this.__http.post(this.__appSettings.API_Config + this.commonControllerName + '/getPartyInfo', query);
@@ -45,6 +51,24 @@ export class SalesService {
     public getSalesForEdit(query: any): Observable<any> {
         if (query) {
             return this.__http.post(this.__appSettings.API_Config + this.controllerName + '/getSalesForEdit', query);
+        }
+    }
+
+    public deleteData(item: any) {
+        if (item) {
+            return this.__http.delete(this.__appSettings.API_Config + this.controllerName + '/deleteData?Code=' + item.Code, item);
+        }
+    }
+
+    public deleteItem(item: any) {
+        if (item) {
+            return this.__http.delete(this.__appSettings.API_Config + this.controllerName + '/deleteItem?Code=' + item.Code, item);
+        }
+    }
+
+    public GetInvoiceReport(item: any) {
+        if (item) {
+            return this.__http.post(this.__appSettings.API_Config + this.controllerName + '/GetInvoiceReport', item);
         }
     }
 

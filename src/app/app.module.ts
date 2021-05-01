@@ -15,7 +15,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator'; 
 import {MatDialogModule} from '@angular/material/dialog';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
-
+import { LayoutModule} from './layout/layout.module';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar'; 
 
@@ -59,6 +59,7 @@ import { CompanyaddeditComponent } from './company/companyaddedit/companyaddedit
         BrowserAnimationsModule,
         FlexLayoutModule,
         FormsModule,
+        LayoutModule,
         ReactiveFormsModule,
         MatCardModule,
         MatButtonModule,

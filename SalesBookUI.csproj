@@ -29,6 +29,10 @@
     <Content Include="src\app\company\companyaddedit\companyaddedit.component.html" />
     <Content Include="src\app\custvend\custvend.component.html" />
     <Content Include="src\app\custvend\custvendaddedit\custvendaddedit.component.html" />
+    <Content Include="src\app\layout\footer\footer.component.html" />
+    <Content Include="src\app\layout\header\header.component.html" />
+    <Content Include="src\app\layout\layout\layout.component.html" />
+    <Content Include="src\app\layout\side-menu\side-menu.component.html" />
     <Content Include="src\app\login\login.component.html" />
     <Content Include="src\app\product-master\product-master-add-edit\product-master-add-edit.component.html" />
     <Content Include="src\app\product-master\product-master.component.html" />
@@ -64,8 +68,22 @@
     <TypeScriptCompile Include="src\app\custvend\custvend.service.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvendaddedit\custvendaddedit.component.spec.ts" />
     <TypeScriptCompile Include="src\app\custvend\custvendaddedit\custvendaddedit.component.ts" />
+    <TypeScriptCompile Include="src\app\layout\footer\footer.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\layout\footer\footer.component.ts" />
+    <TypeScriptCompile Include="src\app\layout\footer\footer.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\layout\footer\footer.service.ts" />
+    <TypeScriptCompile Include="src\app\layout\header\header.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\layout\header\header.component.ts" />
+    <TypeScriptCompile Include="src\app\layout\header\header.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\layout\header\header.service.ts" />
+    <TypeScriptCompile Include="src\app\layout\layout.module.ts" />
+    <TypeScriptCompile Include="src\app\layout\layout\layout.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\layout\layout\layout.component.ts" />
+    <TypeScriptCompile Include="src\app\layout\side-menu\side-menu.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\layout\side-menu\side-menu.component.ts" />
     <TypeScriptCompile Include="src\app\login\login.component.spec.ts" />
     <TypeScriptCompile Include="src\app\login\login.component.ts" />
+    <TypeScriptCompile Include="src\app\login\login.service.spec.ts" />
     <TypeScriptCompile Include="src\app\login\login.service.ts" />
     <TypeScriptCompile Include="src\app\product-master\product-master-add-edit\product-master-add-edit.component.spec.ts" />
     <TypeScriptCompile Include="src\app\product-master\product-master-add-edit\product-master-add-edit.component.ts" />
@@ -105,6 +123,10 @@
     <Content Include="src\app\bank\bankaddedit\bankaddedit.component.scss" />
     <Content Include="src\app\company\company.component.scss" />
     <Content Include="src\app\company\companyaddedit\companyaddedit.component.scss" />
+    <Content Include="src\app\layout\footer\footer.component.scss" />
+    <Content Include="src\app\layout\header\header.component.scss" />
+    <Content Include="src\app\layout\side-menu\side-menu.component.scss" />
+    <Content Include="src\app\layout\layout\layout.component.scss" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

@@ -1,0 +1,16 @@
+<footer>
+    <mat-toolbar style="height:40px;font-size:15px;position:fixed" color="#E0B2E7">
+        <mat-icon>copyright</mat-icon>
+        <span>
+            <a href="http://www.mindtechsolutions.com/">Prevision Infotech.</a> All right Reserved!
+        </span>
+        <span *ngIf="userName">
+            <label>UserName</label> : <label>{{userName}}</label>
+        </span>
+        <span *ngIf="IPAddress">
+            <label>IP Address</label> : <label>{{IPAddress}}</label>
+        </span>
+        <span class="example-spacer"></span>
+        <span>{{currentDate | date:'medium' }}</span>
+    </mat-toolbar>
+</footer>

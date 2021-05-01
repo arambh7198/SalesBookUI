@@ -7,16 +7,22 @@ import { ProductMasterComponent } from './product-master/product-master.componen
 import { CustvendComponent} from './custvend/custvend.component'
 import { BankComponent } from './bank/bank.component';
 import { CompanyComponent } from './company/company.component';
-
+import { LayoutComponent } from './layout/layout/layout.component'
 
 const routes: Routes = [
-    { path: 'sales', component: SalesComponent },
-    { path: 'salesAddEdit', component: SalesaddeditComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'product', component: ProductMasterComponent },
-    { path: 'custvend', component: CustvendComponent },
-    { path: 'bank', component: BankComponent },
-    { path: 'comapny', component: CompanyComponent },
+    {
+        path: '', component: LayoutComponent,
+        children: [
+            { path: 'sales', component: SalesComponent },
+            { path: 'salesAddEdit/:id', component: SalesaddeditComponent },
+           
+            { path: 'product', component: ProductMasterComponent },
+            { path: 'custvend', component: CustvendComponent },
+            { path: 'bank', component: BankComponent },
+            { path: 'company', component: CompanyComponent },
+        ]
+    },
+    { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
