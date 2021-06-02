@@ -5,7 +5,7 @@
         </button>
         <span [innerHTML]="DynamicHeaderTitle"></span>
         <span class="example-spacer">Sales Book</span>
-        <button (click)="logout()" mat-button class="example-icon" aria-label="Example icon-button with share icon" >
+        <button (click)="logout()" *ngIf="!hideLogout" mat-button class="example-icon" aria-label="Example icon-button with share icon" >
             <span>Logout</span>
         </button>
     </mat-toolbar>

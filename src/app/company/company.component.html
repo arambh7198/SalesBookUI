@@ -26,6 +26,16 @@
                     CompanyName
                 </th>
                 <th class="th-TrayQty"
+                    (click)="sortClick('GST')"
+                    [ngClass]="{ 'sorting': isSorting('GST'), 'sorting_asc': isSortAsc('GST'), 'sorting_desc': isSortDesc('GST') }">
+                    GST
+                </th>
+                <th class="th-TrayQty"
+                    (click)="sortClick('PAN')"
+                    [ngClass]="{ 'sorting': isSorting('PAN'), 'sorting_asc': isSortAsc('PAN'), 'sorting_desc': isSortDesc('PAN') }">
+                    PAN
+                </th>
+                <th class="th-TrayQty"
                     (click)="sortClick('EmailID')"
                     [ngClass]="{ 'sorting': isSorting('EmailID'), 'sorting_asc': isSortAsc('EmailID'), 'sorting_desc': isSortDesc('EmailID') }">
                     EmailID
@@ -50,10 +60,16 @@
 
                 </td>
                 <td>
-                    {{item.AccNo}}
+                    {{item.GST}}
                 </td>
                 <td>
-                    {{item.IFSCCode}}
+                    {{item.PAN}}
+                </td>
+                <td>
+                    {{item.EmailID}}
+                </td>
+                <td>
+                    {{item.MobileNo}}
                 </td>
 
                 <td>

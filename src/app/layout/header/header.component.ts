@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
     public DynamicHeaderTitle: string = "MindCube SmartTool";
     public IsUserLogin: boolean = false;
     @Output() public sidenavToggle = new EventEmitter();
-
+    public hideLogout: boolean = false;
 
     constructor(
         private router: Router,
@@ -27,6 +27,9 @@ export class HeaderComponent implements OnInit {
             this.DynamicHeaderTitle =  RtnData != null ? RtnData.DynamicHeaderTitle : "Welcome to MindCube SmartTool";
             this.IsUserLogin = RtnData != null ? RtnData.IsUserLogin : false;
         })
+        if (this.router.url == "/") {
+            this.hideLogout = true;
+        }; // 
     }
 
     public logout() {

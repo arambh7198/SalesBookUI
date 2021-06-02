@@ -112,7 +112,7 @@ export class SalesaddeditComponent implements OnInit {
             DueDate: new FormControl(item.DueDate || null),
             BankCode: new FormControl(item.BankCode || null),
             CustomerCode: new FormControl(item.CustomerCode || null),
-            CompanyCode: new FormControl(item.CompanyCode || null),
+            CompanyCode: new FormControl(item.CompanyCode || 1),
 
             Amount: new FormControl(item.Amount || null),
             CGST: new FormControl(item.CGST || null),
@@ -148,16 +148,13 @@ export class SalesaddeditComponent implements OnInit {
     }
 
 
-    public saveInvoice(isItem: boolean = false, itemindex: number = 0, item: any = {}) {
-        alert(itemindex)
+    public saveInvoice(isItem: boolean = false, itemindex: number = 0, item: any = {},isCommitted : boolean = false) {
         item.SrNo = itemindex;
         const SendObj = { ...this.itemForm.getRawValue() };
         this.UpdateSavingDateTimeFormat(SendObj);
         SendObj.SalesItemsInfo = this.SalesItemsArray;
         this.__salesService.saveSales(SendObj)
             .subscribe(data => {
-                console.log(data)
-                alert()
                 if (!isItem) {
                     this.itemForm['controls']["Code"].setValue(data.Sales[0].Code);
                 } else {
@@ -283,5 +280,9 @@ export class SalesaddeditComponent implements OnInit {
                 })
 
         }
+    }
+
+    public pending() {
+        alert('Functionality is still in work');
     }
 }

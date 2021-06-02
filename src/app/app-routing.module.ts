@@ -13,6 +13,7 @@ const routes: Routes = [
     {
         path: '', component: LayoutComponent,
         children: [
+            { path: '', component: LoginComponent },
             { path: 'sales', component: SalesComponent },
             { path: 'salesAddEdit/:id', component: SalesaddeditComponent },
            

@@ -35,6 +35,7 @@ import { BankComponent } from './bank/bank.component';
 import { BankaddeditComponent } from './bank/bankaddedit/bankaddedit.component';
 import { CompanyComponent } from './company/company.component';
 import { CompanyaddeditComponent } from './company/companyaddedit/companyaddedit.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -78,7 +79,8 @@ import { CompanyaddeditComponent } from './company/companyaddedit/companyaddedit
         useClass: TokenInterceptor,
         multi: true
     }, appSettings,
-    { provide: OWL_DATE_TIME_LOCALE, useValue: 'en-SG' }
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'en-SG' },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
     ],
     bootstrap: [AppComponent]
 })

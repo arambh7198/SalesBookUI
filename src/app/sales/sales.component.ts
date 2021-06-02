@@ -166,4 +166,10 @@ export class SalesComponent implements OnInit {
       })
   }
 
+  public pending(obj : any) {
+      alert('Functionality is still in work');
+  }
+
 }
+
+
