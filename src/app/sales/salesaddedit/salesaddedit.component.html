@@ -4,7 +4,7 @@
             <strong>Create Sales invoice</strong>
         </div>
         <div fxFlex="80" fxLayoutAlign="end center">
-            <button (click)="saveInvoice()" mat-raised-button color="primary">
+            <button (click)="saveInvoice(false,0,{},true)" mat-raised-button color="primary">
                 <mat-icon style="padding-right:3px;margin-bottom:2px">
                     save
                 </mat-icon>Save Invoice
@@ -129,7 +129,7 @@
             </div>-->
             <div fxFlex="33">
                 <mat-form-field class="full-width">
-                    <input matInput name="DueDate" required hour12Timer="false" [owlDateTime]="DueDate"
+                    <input matInput name="DueDate" hour12Timer="false" [owlDateTime]="DueDate"
                            [owlDateTimeTrigger]="DueDate" [formControl]="itemForm.controls['DueDate']"
                            placeholder="Due Date" autocomplete="off">
                     <button type="button" mat-icon-button matSuffix color="primary" [owlDateTimeTrigger]="DueDate">
@@ -138,6 +138,63 @@
                     <owl-date-time [pickerType]="'calendar'" #DueDate></owl-date-time>
                 </mat-form-field>
             </div>
+
+
+            <div fxFlex="33">
+                <mat-form-field appearance="legacy" class="full-width">
+                    <mat-label>P.O. No.</mat-label>
+                    <input #PONo [formControl]="itemForm.controls['PONo']" maxlength="200" matInput >
+                    <mat-icon matSuffix>receipt</mat-icon>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33">
+                <mat-form-field class="full-width">
+                    <input matInput name="PODate" hour12Timer="false" [owlDateTime]="PODate"
+                           [owlDateTimeTrigger]="PODate" [formControl]="itemForm.controls['PODate']"
+                           placeholder="Invoice Date" autocomplete="off">
+                    <button type="button" mat-icon-button matSuffix color="primary" [owlDateTimeTrigger]="PODate">
+                        <mat-icon>event</mat-icon>
+                    </button>
+                    <owl-date-time [pickerType]="'calendar'" #PODate></owl-date-time>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33">
+                <mat-form-field appearance="legacy" class="full-width">
+                    <mat-label>Challan No.</mat-label>
+                    <input #ChallanNo [formControl]="itemForm.controls['ChallanNo']" maxlength="200" matInput >
+                    <mat-icon matSuffix>receipt</mat-icon>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33">
+                <mat-form-field class="full-width">
+                    <input matInput name="ChallanDate"  hour12Timer="false" [owlDateTime]="ChallanDate"
+                           [owlDateTimeTrigger]="ChallanDate" [formControl]="itemForm.controls['ChallanDate']"
+                           placeholder="Challan Date" autocomplete="off">
+                    <button type="button" mat-icon-button matSuffix color="primary" [owlDateTimeTrigger]="ChallanDate">
+                        <mat-icon>event</mat-icon>
+                    </button>
+                    <owl-date-time [pickerType]="'calendar'" #ChallanDate></owl-date-time>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33">
+                <mat-form-field appearance="legacy" class="full-width">
+                    <mat-label>Transporter</mat-label>
+                    <input #Transporter [formControl]="itemForm.controls['Transporter']" maxlength="200" matInput >
+                    <mat-icon matSuffix>receipt</mat-icon>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33">
+                <mat-form-field appearance="legacy" class="full-width">
+                    <mat-label>L.R. No.</mat-label>
+                    <input #LRNo [formControl]="itemForm.controls['LRNo']" maxlength="200" matInput >
+                    <mat-icon matSuffix>receipt</mat-icon>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33" class="pt-1 pr-1" >
+                <mat-slide-toggle [formControl]="itemForm.controls['ApplyIGST']">Apply IGST</mat-slide-toggle>
+            </div>
+
+
         </div>
     </form>
 </mat-card>
@@ -267,10 +324,12 @@
                     </tr>
                     <tr>
                         <td class="th-TrayQty">
-                            Transportation
+                            Shipping Charges
                         </td>
                         <td style="text-align:right;border:solid">
-                            <input #Transportation [formControl]="itemForm.controls['Transportation']"
+                            <input #Transportation 
+                                   (input)="CalculateTotal();"
+                                   [formControl]="itemForm.controls['Transportation']"
                                    maxlength="200" matInput placeholder="Enter Transporatation Amount ">
 
                         </td>
@@ -283,7 +342,15 @@
                             {{itemForm.controls['Discount'].value  | currency:'INR'}}
                         </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="itemForm.controls['ApplyIGST'].value">
+                        <td class="th-TrayQty">
+                            IGST
+                        </td>
+                        <td style="text-align:right;padding:7px">
+                            {{ itemForm.controls['IGST'].value | currency:'INR'}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="!itemForm.controls['ApplyIGST'].value">
                         <td class="th-TrayQty">
                             CGST
                         </td>
@@ -291,7 +358,7 @@
                             {{ itemForm.controls['CGST'].value | currency:'INR'}}
                         </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="!itemForm.controls['ApplyIGST'].value">
                         <td class="th-TrayQty">
                             SGST
                         </td>

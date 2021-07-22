@@ -6,6 +6,7 @@ import { SalesService } from '../sales.service'
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { CommonService } from '../../common.service'
 import * as moment from 'moment';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-salesaddedit',
@@ -19,6 +20,7 @@ export class SalesaddeditComponent implements OnInit {
     public SalesItemObj: any;
     public SalesItemsArray: any = [];
 
+	public ApplyIGST:boolean = false;
 
 
 
@@ -37,6 +39,7 @@ export class SalesaddeditComponent implements OnInit {
         private __fb: FormBuilder,
         private __commonService: CommonService,
         private __activatedRoute: ActivatedRoute,
+		private _snackBar: MatSnackBar
     ) {
         this.filteredPartyObservable = this.partyCtrl.valueChanges
             .pipe(
@@ -110,14 +113,24 @@ export class SalesaddeditComponent implements OnInit {
             InvoiceNo: new FormControl(item.InvoiceNo || null),
             InvoiceDate: new FormControl(item.InvoiceDate || null),
             DueDate: new FormControl(item.DueDate || null),
-            BankCode: new FormControl(item.BankCode || null),
+            BankCode: new FormControl(item.BankCode || 1),
             CustomerCode: new FormControl(item.CustomerCode || null),
             CompanyCode: new FormControl(item.CompanyCode || 1),
+
+			PONo: new FormControl(item.PONo || null),
+			PODate: new FormControl(item.PODate || null),
+			ChallanNo: new FormControl(item.ChallanNo || 'DIRECT'),
+			ChallanDate: new FormControl(item.ChallanDate || null),
+			Transporter: new FormControl(item.Transporter || 'PRIVATE'),
+			LRNo: new FormControl(item.LRNo || 'NA'),
+
+
 
             Amount: new FormControl(item.Amount || null),
             CGST: new FormControl(item.CGST || null),
             SGST: new FormControl(item.SGST || null),
             IGST: new FormControl(item.IGST || null),
+			ApplyIGST: new FormControl(item.ApplyIGST || false),
             Transportation: new FormControl(item.Transportation || null),
             Discount: new FormControl(item.Discount || null),
             TotalAmount: new FormControl(item.TotalAmount || null),
@@ -151,6 +164,7 @@ export class SalesaddeditComponent implements OnInit {
     public saveInvoice(isItem: boolean = false, itemindex: number = 0, item: any = {},isCommitted : boolean = false) {
         item.SrNo = itemindex;
         const SendObj = { ...this.itemForm.getRawValue() };
+		SendObj["IsCommited"] = isCommitted
         this.UpdateSavingDateTimeFormat(SendObj);
         SendObj.SalesItemsInfo = this.SalesItemsArray;
         this.__salesService.saveSales(SendObj)
@@ -169,8 +183,12 @@ export class SalesaddeditComponent implements OnInit {
                 this.itemForm['controls']["Amount"].setValue(data.Sales[0].Amount);
                 this.itemForm['controls']["CGST"].setValue(data.Sales[0].CGST);
                 this.itemForm['controls']["SGST"].setValue(data.Sales[0].SGST);
+				this.itemForm['controls']["IGST"].setValue(data.Sales[0].IGST);
                 this.itemForm['controls']["Discount"].setValue(data.Sales[0].Discount);
                 this.itemForm['controls']["TotalAmount"].setValue(data.Sales[0].TotalAmount);
+				if(isCommitted){
+					 this._snackBar.open("Invoice Saved", "Done");
+					 }
 
             }, err => {
 
@@ -255,6 +273,10 @@ export class SalesaddeditComponent implements OnInit {
             item.Amount = item.PerPrice * item.Qty
         }
     }
+
+	public CalculateTotal(){
+		this.itemForm.controls['TotalAmount'].setValue(+this.itemForm.controls['Amount'].value + +this.itemForm.controls['Transportation'].value + +this.itemForm.controls['IGST'].value) 
+	}
 
 
 
