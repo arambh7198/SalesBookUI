@@ -8,6 +8,8 @@ import { CustvendComponent} from './custvend/custvend.component'
 import { BankComponent } from './bank/bank.component';
 import { CompanyComponent } from './company/company.component';
 import { LayoutComponent } from './layout/layout/layout.component'
+import { QuotationsComponent } from './quotations/quotations.component';
+import { QuotationaddeditComponent } from './quotations/quotationaddedit/quotationaddedit.component';
 
 const routes: Routes = [
     {
@@ -16,6 +18,9 @@ const routes: Routes = [
             { path: '', component: LoginComponent },
             { path: 'sales', component: SalesComponent },
             { path: 'salesAddEdit/:id', component: SalesaddeditComponent },
+
+			{ path: 'quotations', component: QuotationsComponent },
+            { path: 'quotAddEdit/:id', component: QuotationaddeditComponent },
            
             { path: 'product', component: ProductMasterComponent },
             { path: 'custvend', component: CustvendComponent },

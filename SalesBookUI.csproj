@@ -36,6 +36,14 @@
     <Content Include="src\app\login\login.component.html" />
     <Content Include="src\app\product-master\product-master-add-edit\product-master-add-edit.component.html" />
     <Content Include="src\app\product-master\product-master.component.html" />
+    <Content Include="src\app\quotations\quotationaddedit\quotationaddedit.component.html" />
+    <Content Include="src\app\quotations\quotationaddedit\quotationaddedit.component.spec.ts" />
+    <Content Include="src\app\quotations\quotationaddedit\quotationaddedit.component.ts" />
+    <Content Include="src\app\quotations\quotations.component.html" />
+    <Content Include="src\app\quotations\quotations.component.spec.ts" />
+    <Content Include="src\app\quotations\quotations.component.ts" />
+    <Content Include="src\app\quotations\quotations.service.spec.ts" />
+    <Content Include="src\app\quotations\quotations.service.ts" />
     <Content Include="src\app\sales\sales.component.html" />
     <Content Include="src\app\sales\salesaddedit\salesaddedit.component.html" />
     <Content Include="src\favicon.ico" />
@@ -127,6 +135,8 @@
     <Content Include="src\app\layout\header\header.component.scss" />
     <Content Include="src\app\layout\side-menu\side-menu.component.scss" />
     <Content Include="src\app\layout\layout\layout.component.scss" />
+    <Content Include="src\app\quotations\quotationaddedit\quotationaddedit.component.scss" />
+    <Content Include="src\app\quotations\quotations.component.scss" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

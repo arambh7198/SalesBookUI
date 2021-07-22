@@ -36,6 +36,8 @@ import { BankaddeditComponent } from './bank/bankaddedit/bankaddedit.component';
 import { CompanyComponent } from './company/company.component';
 import { CompanyaddeditComponent } from './company/companyaddedit/companyaddedit.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { QuotationsComponent } from './quotations/quotations.component';
+import { QuotationaddeditComponent } from './quotations/quotationaddedit/quotationaddedit.component';
 
 @NgModule({
     declarations: [
@@ -50,7 +52,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
         BankComponent,
         BankaddeditComponent,
         CompanyComponent,
-        CompanyaddeditComponent
+        CompanyaddeditComponent,
+        QuotationsComponent,
+        QuotationaddeditComponent
     ],
     imports: [
         BrowserModule,

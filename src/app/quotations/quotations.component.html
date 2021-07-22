@@ -1,0 +1,94 @@
+﻿<mat-card>
+    <div fxLayout="row">
+        <div fxFlex="20" class="m-333">
+            <button (click)="addEditSales('-1')" mat-raised-button color="primary">
+                <mat-icon style="padding-right:3px;margin-bottom:2px">
+                    add
+                </mat-icon>Create Quotation
+            </button>
+        </div>
+        <div fxFlex="80" fxLayoutAlign="end center">
+            <mat-form-field class="pt-0 pb-0">
+                <input matInput placeholder="Search" [(ngModel)]="query.SearchText" (input)="searchCallback()" />
+            </mat-form-field>
+            <mat-icon>search</mat-icon>
+        </div>
+    </div>
+</mat-card>
+<!--<mat-card><button mat-raised-button color="primary"><mat-icon style="padding-right:3px;margin-bottom:2px">attachment</mat-icon>Create New Product</button></mat-card>-->
+<mat-card>
+    <table border="1" class="table_data_section try-data-table">
+        <thead>
+            <tr>
+                <th class="th-TrayQty"
+                    (click)="sortClick('InvoiceNo')"
+                    [ngClass]="{ 'sorting': isSorting('InvoiceNo'), 'sorting_asc': isSortAsc('InvoiceNo'), 'sorting_desc': isSortDesc('InvoiceNo') }">
+                    Name
+                </th>
+                <th class="th-TrayQty"
+                    (click)="sortClick('Customer')"
+                    [ngClass]="{ 'sorting': isSorting('Customer'), 'sorting_asc': isSortAsc('Customer'), 'sorting_desc': isSortDesc('Customer') }">
+                    Party
+                </th>
+                <th class="th-TrayQty"
+                    (click)="sortClick('InvoiceDate')"
+                    [ngClass]="{ 'sorting': isSorting('InvoiceDate'), 'sorting_asc': isSortAsc('InvoiceDate'), 'sorting_desc': isSortDesc('InvoiceDate') }">
+                    Date
+                </th>
+                <th class="th-TrayQty"
+                    (click)="sortClick('TotalAmount')"
+                    [ngClass]="{ 'sorting': isSorting('TotalAmount'), 'sorting_asc': isSortAsc('TotalAmount'), 'sorting_desc': isSortDesc('TotalAmount') }">
+                    Amount
+                </th>
+
+                <!--<th class="th-TrayQty">
+                    Locked
+                </th>-->
+                <th class="th-150">WebAction</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let item of items">
+                <td>
+                    {{item.InvoiceNo}}<br>
+
+                </td>
+                <td>
+                    {{item.Customer}}
+                </td>
+                <td>
+                    {{item.InvoiceDate | date :'longDate'}}
+                </td>
+                <td>
+                    {{item.TotalAmount | currency:'INR'}}
+                </td>
+
+                <td>
+                    <button (click)="pending(item)" mat-icon-button
+                            color="primary" aria-label="Example icon button with a home icon">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button (click)="deleteItem(item)" mat-icon-button color="warn" aria-label="Example icon button with a menu icon">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button (click)="DownloadInvoice(item)" mat-icon-button color="warn" aria-label="Example icon button with a menu icon">
+                        <mat-icon>picture_as_pdf</mat-icon>
+                    </button>
+                    <button (click)="pending(item)" mat-icon-button color="warn" aria-label="Example icon button with a menu icon">
+                        <mat-icon>mail</mat-icon>
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <mat-paginator [length]="query.TotalCount"
+                   [pageSize]="query.PageSize"
+                   (page)="ListPageChangeEvent($event)">
+    </mat-paginator>
+
+
+</mat-card>
